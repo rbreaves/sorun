@@ -4,7 +4,7 @@ Fast Dev Environment Setup Script
 ## Install (Linux)
 
 ```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/rbreaves/kairos/master/linux.sh)"
+bash <( curl  https://raw.githubusercontent.com/rbreaves/kairos/master/linux.sh )
 ```
 
 Parameter options
@@ -18,5 +18,5 @@ Parameter options
 ## Install (Windows)
 
 ```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/rbreaves/kairos/master/windows.sh)"
+
 ```
