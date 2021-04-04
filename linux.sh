@@ -114,6 +114,7 @@ elif pkgmgr="$( which zypper )" 2> /dev/null; then
 	echo "openSUSE-based"
 	sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
 	sudo $pkgmgr addrepo -g -f https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
+	sudo $pkgmgr -n addrepo https://download.opensuse.org/repositories/home:GiuseppeS/openSUSE_Tumbleweed/home:GiuseppeS.repo
 	sudo $pkgmgr refresh
 	sudo $pkgmgr -n install git $apps
 else
@@ -123,9 +124,13 @@ fi
 
 if [ "$apps" != "sublime-text" ];then
 	echo "Install files, fonts, etc..."
-	mkdir ~/.fonts
-	wget https://github.com/powerline/fonts/blob/master/DejaVuSansMono/DejaVu%20Sans%20Mono%20for%20Powerline.ttf -P ~/.fonts
-	fc-cache -f -v
+	if [ ! -d "~/.fonts" ];then
+		mkdir ~/.fonts
+	fi
+	if [ ! -f "~/.fonts/DejaVu Sans Mono for Powerline.ttf" ];then
+		wget https://github.com/powerline/fonts/blob/master/DejaVuSansMono/DejaVu%20Sans%20Mono%20for%20Powerline.ttf -P ~/.fonts
+		fc-cache -f -v
+	fi
 else
 	echo -e "\nSkipping install of additional file configs, fonts, etc."
 fi
