@@ -10,7 +10,9 @@ Fast Dev Environment Setup Script
 Parameter options
 
 -l (lowercase L) - Install sublimetext 3 only, normal prompts
+
 -k - automatically install Kinto without prompting
+
 -a - Install all options, as few prompts as possible
 
 ## Install (Windows)
