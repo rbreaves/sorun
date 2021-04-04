@@ -114,7 +114,7 @@ elif pkgmgr="$( which zypper )" 2> /dev/null; then
 	sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
 	sudo $pkgmgr addrepo -g -f https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
 	sudo $pkgmgr refresh
-	sudo $pkgmgr -y install git $apps
+	sudo $pkgmgr -n install git $apps
 else
 	echo "Package manager not found/supported" >&2
 	exit 1
