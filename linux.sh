@@ -25,7 +25,7 @@ else
 	projectsyn="n"
 fi
 
-if [ $# -eq 0 ] || [ "$1" == "-l" ];then
+if [ $# -eq 0 ];then
 	echo -e "Will install all programs first, but first answer the following questions."
 	while true; do
 	read -rep $'\nWould you like to install or reinstall Kinto? [Y/n]\n' kintoyn
@@ -38,7 +38,7 @@ if [ $# -eq 0 ] || [ "$1" == "-l" ];then
 
 	while true; do
 	read -rep $'\nWould you like to install Virtualbox? [Y/n]\n' virtualboxyn
-		case $kintoyn in
+		case $virtualboxyn in
 			[Yy]* ) echo "Will install Virtualbox";virtualboxyn="y"; break;;
 			[Nn]* ) echo "Installing Virtualbox will be skipped";virtualboxyn="n";break;;
 			* ) echo "Will install Virtualbox";virtualboxyn="y";break;;
@@ -47,7 +47,7 @@ if [ $# -eq 0 ] || [ "$1" == "-l" ];then
 
 	while true; do
 	read -rep $'\nCreate git-projects folder under Documents with Kinto and Kairos inside? [Y/n]\n' projectsyn
-		case $kintoyn in
+		case $projectsyn in
 			[Yy]* ) echo "Will setup git-projects";projectsyn="y"; break;;
 			[Nn]* ) echo "git-projects setup will be skipped";projectsyn="n";break;;
 			* ) echo "Will setup git-projects";projectsyn="y";break;;
@@ -61,13 +61,14 @@ if [ "$1" == "-k" ] || [ "$2" == "-k" ];then
 	echo "Will install Kinto"
 	kintoyn="y"
 elif [ "$1" == "-l" ] || [ "$2" == "-l" ];then
-	echo "Sublime only install"
+	echo "Sublime only install with git-projects (Kinto, Kairos)"
 	apps="sublime-text"
+	projectsyn="y"
 elif [ "$1" == "-lk" ] || [ "$2" == "-kl" ];then
-	echo "Will install Kinto"
+	echo "Will install Kinto, Sublime and git-projects (Kinto, Kairos)"
 	kintoyn="y"
-	echo "Sublime only install"
 	apps="sublime-text"
+	projectsyn="n"
 fi
 
 # Defaults end, questions are done.
@@ -125,6 +126,8 @@ if [ "$apps" != "sublime-text" ];then
 	mkdir ~/.fonts
 	wget https://github.com/powerline/fonts/blob/master/DejaVuSansMono/DejaVu%20Sans%20Mono%20for%20Powerline.ttf -P ~/.fonts
 	fc-cache -f -v
+else
+	echo -e "\nSkipping install of additional file configs, fonts, etc."
 fi
 
 if [ "$kintoyn" == "y" ];then
@@ -134,23 +137,27 @@ fi
 
 if [ "$projectsyn" == "y" ];then
 	echo -e "\nSetup git-projects..."
-	if [ -d "~/Documents/git-projects" ];then
+	if [ ! -d "~/Documents/git-projects" ];then
 		mkdir ~/Documents/git-projects
 	fi
 	cd ~/Documents/git-projects
-	if [ -d "~/Documents/git-projects/kinto" ];then
+	if [ ! -d "~/Documents/git-projects/kinto" ];then
 		git clone https://github.com/rbreaves/kinto.git
 	else
 		echo "Kinto repo already exists."
 	fi
-	if [ -d "~/Documents/git-projects/kairos" ];then
+	if [ ! -d "~/Documents/git-projects/kairos" ];then
 		git clone https://github.com/rbreaves/kairos.git
 	else
 		echo -e "Kairos repo already exists.\n"
 	fi
+else
+	echo -e "\nSkipping install & setup of ~/Documents/git-projects.\n"
 fi
 
 if [ "$apps" != "sublime-text" ];then
 	echo "Install oh-my-zsh..."
 	sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+else
+	echo -e "\nSkipping oh-my-zsh install\n"
 fi

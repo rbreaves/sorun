@@ -4,7 +4,7 @@ Fast Dev Environment Setup Script
 ## Install (Linux)
 
 ```
-bash <( curl  https://raw.githubusercontent.com/rbreaves/kairos/master/linux.sh )
+bash <( curl  https://raw.githubusercontent.com/rbreaves/kairos/HEAD/linux.sh )
 ```
 
 Parameter options
