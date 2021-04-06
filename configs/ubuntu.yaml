@@ -1,0 +1,11 @@
+Distro: Ubuntu
+DE: Gnome
+# distro-version:
+# de-version:
+Install:
+  Packages: ncdu htop
+  Snaps:
+  After: echo "Congrats";
+    echo "You are done!"
+Remove:
+  Packages: ncdu htop
