@@ -2,167 +2,93 @@
 
 echo -e "Kairos - Fast Dev Environment Setup Script\n"
 
-
-# Sets defaults and asks all questions before the installer begins
-
-apps="sublime-text xfce4-terminal vim zsh tmux remmina font-manager"
-
-if [ "$1" == "-a" ];then
-	kintoyn="y"
-	virtualboxyn="y"
-	projectsyn="y"
-	apps="${apps} virtualbox virtualbox-ext-pack"
-	echo -e "All programs and options will be installed.\n"
-	echo "Kinto remapper will be installed."
-	echo -e "Virtualbox w/ extension pack will be installed.\n"
-	echo -e "Git projects Kinto & Kairos will be added to ~/Documents/git-projects.\n"
-	echo "These programs will be installed."
-	echo -e "$apps\n"
-	read -p 'Press Any key to confirm...' anykey
-else
-	kintoyn="n"
-	virtualboxyn="n"
-	projectsyn="n"
-fi
-
-if [ $# -eq 0 ];then
-	echo -e "Will install all programs first, but first answer the following questions."
-	while true; do
-	read -rep $'\nWould you like to install or reinstall Kinto? [Y/n]\n' kintoyn
-		case $kintoyn in
-			[Yy]* ) echo "Will install Kinto";kintoyn="y"; break;;
-			[Nn]* ) echo "Installing Kinto will be skipped";kintoyn="n";break;;
-			* ) echo "Will install Kinto";kintoyn="y";break;;
-		esac
-	done
-
-	while true; do
-	read -rep $'\nWould you like to install Virtualbox? [Y/n]\n' virtualboxyn
-		case $virtualboxyn in
-			[Yy]* ) echo "Will install Virtualbox";virtualboxyn="y"; break;;
-			[Nn]* ) echo "Installing Virtualbox will be skipped";virtualboxyn="n";break;;
-			* ) echo "Will install Virtualbox";virtualboxyn="y";break;;
-		esac
-	done
-
-	while true; do
-	read -rep $'\nCreate git-projects folder under Documents with Kinto and Kairos inside? [Y/n]\n' projectsyn
-		case $projectsyn in
-			[Yy]* ) echo "Will setup git-projects";projectsyn="y"; break;;
-			[Nn]* ) echo "git-projects setup will be skipped";projectsyn="n";break;;
-			* ) echo "Will setup git-projects";projectsyn="y";break;;
-		esac
-	done
-
-	echo ""
-fi
-
-if [ "$1" == "-k" ] || [ "$2" == "-k" ];then
-	echo "Will install Kinto"
-	kintoyn="y"
-elif [ "$1" == "-l" ] || [ "$2" == "-l" ];then
-	echo "Sublime only install with git-projects (Kinto, Kairos)"
-	apps="sublime-text"
-	projectsyn="y"
-elif [ "$1" == "-lk" ] || [ "$2" == "-kl" ];then
-	echo "Will install Kinto, Sublime and git-projects (Kinto, Kairos)"
-	kintoyn="y"
-	apps="sublime-text"
-	projectsyn="n"
-fi
-
-# Defaults end, questions are done.
-
-
-# Import distro and dename info
-
-typeset -l distro
-distro=$(awk -F= '$1=="NAME" { gsub("[\",!,_, ]","",$2);print $2 ;}' /etc/os-release)
-typeset -l dename
-dename=$(./dename.sh | cut -d " " -f1)
-
-# Running the script
-
-echo -e "Install Distro specific programs...\n"
-
-if pkgmgr="$( which apt-get )" 2> /dev/null; then
-	echo "Debain based setup"
-	sudo $pkgmgr update
-	wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
-	sudo $pkgmgr -y install apt-transport-https
-	echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-	sudo apt-get update
-	sudo apt-get install git $apps
-elif pkgmgr="$( which dnf )" 2> /dev/null; then
-	echo "Fedora based setup"
-	sudo $pkgmgr check-update
-	sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
-	sudo $pkgmgr config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
-	sudo $pkgmgr -y install git $apps
-elif pkgmgr="$( which pacman )" 2> /dev/null; then
-	echo "Arch-based"
-	sudo $pkgmgr -Syy
-	curl -O https://download.sublimetext.com/sublimehq-pub.gpg && sudo pacman-key --add sublimehq-pub.gpg && sudo pacman-key --lsign-key 8A8F901A && rm sublimehq-pub.gpg
-	echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/x86_64" | sudo tee -a /etc/pacman.conf
-	yes | sudo $pkgmgr -Syu $apps
-elif pkgmgr="$( which yum )" 2> /dev/null; then
-	echo "Redhat-based"
-	sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
-	sudo yum-config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
-	sudo $pkgmgr -y install git $apps
-elif pkgmgr="$( which zypper )" 2> /dev/null; then
-	echo "openSUSE-based"
-	sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
-	sudo $pkgmgr addrepo -g -f https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
-	sudo $pkgmgr -n addrepo https://download.opensuse.org/repositories/home:GiuseppeS/openSUSE_Tumbleweed/home:GiuseppeS.repo
-	sudo $pkgmgr refresh
-	sudo $pkgmgr -n install git $apps
-else
-	echo "Package manager not found/supported" >&2
+# Checks to see if running from the web or locally
+# will download for a local install if ran remotely
+if ! [[ -d "./configs" ]]; then
+	# echo "Please run this script from the proper root directory."
+	# exit 1
+	echo "Running indirectly, will download the latest and initiate the script from there."
+	curl -L -o ~/kairos-dev.tar.gz https://github.com/rbreaves/kairos/archive/refs/heads/dev.tar.gz
+	tar -xvzf ~/kairos-dev.tar.gz
+	cd ~/kairos-dev
+	./linux.sh
 	exit 1
 fi
 
-if [ "$apps" != "sublime-text" ];then
-	echo "Install files, fonts, etc..."
-	if [ ! -d "~/.fonts" ];then
-		mkdir ~/.fonts
-	fi
-	if [ ! -f "~/.fonts/DejaVu Sans Mono for Powerline.ttf" ];then
-		wget https://github.com/powerline/fonts/blob/master/DejaVuSansMono/DejaVu%20Sans%20Mono%20for%20Powerline.ttf -P ~/.fonts
-		fc-cache -f -v
-	fi
-else
-	echo -e "\nSkipping install of additional file configs, fonts, etc."
-fi
+source ./functions/colors.sh
 
-if [ "$kintoyn" == "y" ];then
-	echo "Installing Kinto..."
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/rbreaves/kinto/master/install/linux.sh)"
-fi
+main() {
 
-if [ "$projectsyn" == "y" ];then
-	echo -e "\nSetup git-projects..."
-	if [ ! -d "~/Documents/git-projects" ];then
-		mkdir ~/Documents/git-projects
-	fi
-	cd ~/Documents/git-projects
-	if [ ! -d "~/Documents/git-projects/kinto" ];then
-		git clone https://github.com/rbreaves/kinto.git
+	which snap >/dev/null 2>&1
+	if [ $? -eq 1 ]; then
+		echo "Please install snap before continuing."
+		exit 0
+		
+		# question='Add ppa:rmescandon/yq for parsing yaml configs?'
+		# choices=(*yes no cancel all)
+		# response=$(prompt "$question" $choices)
+		
+		# if [ "$response" == "y" ];then
+		# 	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CC86BB64
+		# 	sudo add-apt-repository ppa:rmescandon/yq
+		# 	sudo apt-get update
+		# 	sudo apt-get install yq -y
+		# else
+		# 	exit 0
+		# fi
 	else
-		echo "Kinto repo already exists."
+		# yq --version
+		# yq version 4.6.1
+		which yq >/dev/null 2>&1
+		if [ $? -eq 1 ]; then
+			snap install yq
+		fi
 	fi
-	if [ ! -d "~/Documents/git-projects/kairos" ];then
-		git clone https://github.com/rbreaves/kairos.git
-	else
-		echo -e "Kairos repo already exists.\n"
-	fi
-else
-	echo -e "\nSkipping install & setup of ~/Documents/git-projects.\n"
-fi
 
-if [ "$apps" != "sublime-text" ];then
-	echo "Install oh-my-zsh..."
-	sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-else
-	echo -e "\nSkipping oh-my-zsh install\n"
-fi
+	# Cleans up yaml file
+	eval $(yq eval '.. | select((tag == "!!map" or tag == "!!seq") | not) | (path | join("_")) + "=" + .' ./configs/ubuntu.yaml \
+		| awk '!/=$/{print }' | sed "s/\"/\\\\\"/g" | awk -F'=' '{print $1"=""\""$2"\""}' | sed "s/_\([0-9]\+\)=/\[\1\]=/gm")
+	# | remove blanks | escapes existing quotes | properly quotes values
+
+	# yq eval 'select(.Distro == "Ubuntu")' ./configs/ubuntu.yaml | grep "DE: Gnome"
+
+	# echo "$Install_Postscript"
+	# eval "$Install_After"
+
+	if [ -n "${Install_Packages}" ]; then
+		echo "Packages queued to run: ${Install_Packages[@]}"
+		for i in "${Install_Packages[@]}";do
+			if [ -f "./repos/$i.sh" ]; then
+				echo ""
+				echo "${BYELLOW}Adding repo for $i...${NC}"
+				"./repos/$i.sh"
+				# echo "${BGREEN}Finished $i.${NC}"
+			fi
+		done
+		echo ""
+		echo "${BYELLOW}Installing all packages...${NC}"
+		sudo apt-get update
+		sudo apt-get -y install "${Install_Packages[@]}"
+		echo "${BGREEN}Finished installing packages.${NC}"
+	fi
+
+	if [ -n "${Install_Postscript}" ]; then
+		echo ""
+		echo "Install scripts queued to run: ${Install_Postscript[@]}"
+		for i in "${Install_Postscript[@]}";do
+			if [ -f "./scripts/$i.sh" ]; then
+				echo ""
+				echo "${BYELLOW}Installing $i...${NC}"
+				"./scripts/$i.sh"
+				echo "${BGREEN}Finished $i.${NC}"
+			fi
+		done
+	fi
+
+}
+
+function prompt(){
+	source ./functions/prompt.sh
+}
+
+main "$@"; exit

@@ -1,11 +1,13 @@
 # kairos
 Fast Dev Environment Setup Script
 
-## Install (Linux)
+## Install (Ubuntu Budgie 20.04 Only)
 
 ```
-bash <( curl  https://raw.githubusercontent.com/rbreaves/kairos/HEAD/linux.sh )
+bash <( curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/rbreaves/kairos/HEAD/linux.sh )
 ```
+
+Note: For other branches replace HEAD with the branch name.
 
 Parameter options
 

@@ -1,11 +1,41 @@
 Distro: Ubuntu
-DE: Gnome
+DE: Budgie
 # distro-version:
 # de-version:
 Install:
-  Packages: ncdu htop
+  Prescript:
+  # ncdu htop
+  Packages:
+    - xfce4-terminal
+    - git
+    - zsh
+    - nemo-preview
+    - sublime-text
+    - code
+    - ncdu
+    - htop
+    - tmux
+    - remmina
+    - font-manager
+    # - virtualbox
+    # - virtualbox-ext-pack
   Snaps:
-  After: echo "Congrats";
-    echo "You are done!"
+  Postscript:
+    - kinto
+    - homerc-files
+    - git-config
+    - git-projects
+    - touchpad-gnome-reverse
+    - battery-gnome-percentage
+    - time-12hr-gnome
+    - mojave
+    - ubuntu-budgie-defaults
+    - terminal-zsh-defaults
+    - homebrew
+    - autojump
+    # - libinput-gestures
+    # - hidpi-laptop-budgie
+  # Done: echo "Congrats";
+  #   echo "You are done!"
 Remove:
-  Packages: ncdu htop
+  Packages:
