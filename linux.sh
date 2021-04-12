@@ -69,6 +69,7 @@ main() {
 	# eval "$Install_After"
 
 	if [ -n "${Install_Packages}" ]; then
+		echo ""
 		echo "Packages queued to run: ${Install_Packages[@]}"
 		for i in "${Install_Packages[@]}";do
 			if [ -f "./repos/$i.sh" ]; then
