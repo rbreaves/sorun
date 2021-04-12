@@ -19,6 +19,11 @@ Install:
     - font-manager
     - budgie-hotcorners-applet
     - budgie-workspace-overview-applet
+    - budgie-applications-menu-applet
+    - budgie-appmenu-applet
+    - budgie-indicator-applet
+    - budgie-dropby-applet
+    - budgie-network-manager-applet
     # - virtualbox
     # - virtualbox-ext-pack
   Snaps:

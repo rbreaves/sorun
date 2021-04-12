@@ -134,7 +134,7 @@ show-new-folder-icon-toolbar=true
 show-full-path-titles=true
 
 [org.nemo.window-state]
-start-with-menu-bar=false
+start-with-menu-bar=true
 sidebar-width=180
 
 [org.nemo.icon-view]

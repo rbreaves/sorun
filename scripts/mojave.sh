@@ -42,3 +42,4 @@ gsettings set org.nemo.desktop font "Roboto Regular 11"
 
 gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ icon-size "72"
 gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ zoom-enabled "false"
+gsettings set io.elementary.desktop.wingpanel.applications-menu enable-powerstrip "true"
