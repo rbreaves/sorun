@@ -24,6 +24,10 @@ Install:
     - budgie-indicator-applet
     - budgie-dropby-applet
     - budgie-network-manager-applet
+    - xdotool                           # libinput-gestures
+    - wmctrl                            # libinput-gestures
+    - libinput-tools                    # libinput-gestures
+    - python3                           # libinput-gestures
     # - virtualbox
     # - virtualbox-ext-pack
   Snaps:
@@ -41,7 +45,7 @@ Install:
     - homebrew
     - autojump
     - git-config
-    # - libinput-gestures
+    - libinput-gestures
     # - hidpi-laptop-budgie
   # Done: echo "Congrats";
   #   echo "You are done!"
