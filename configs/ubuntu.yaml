@@ -9,6 +9,8 @@ Install:
     - xfce4-terminal
     - git
     - zsh
+    - autojump
+    - gir1.2-gtksource-4                # nemo-preview dependency
     - nemo-preview
     - sublime-text
     - code
@@ -28,6 +30,7 @@ Install:
     - wmctrl                            # libinput-gestures
     - libinput-tools                    # libinput-gestures
     - python3                           # libinput-gestures
+    # - gnome-software-plugin-flatpak
     # - virtualbox
     # - virtualbox-ext-pack
   Snaps:
@@ -36,14 +39,15 @@ Install:
     - mojave
     - ubuntu-budgie-defaults
     - kinto
+    # - flathub-repo
     - homerc-files
     - git-projects
     - touchpad-gnome-reverse
     - battery-gnome-percentage
     - time-12hr-gnome
     - terminal-zsh-defaults
-    - homebrew
-    - autojump
+    # - homebrew
+    - autojump                  # Configures bash & zsh to source it
     - git-config
     - libinput-gestures
     # - hidpi-laptop-budgie

@@ -63,6 +63,10 @@ Alignment=end
 ID=User Indicator
 Alignment=end
 
+[HotCorners]
+ID=HotCorners
+Alignment=end
+
 [Separator]
 ID=Separator
 Alignment=end
@@ -73,4 +77,8 @@ Alignment=end
 
 [Raven Trigger]
 ID=Raven Trigger
+Alignment=end
+
+[Workspace Switcher]
+ID=Workspace Switcher
 Alignment=end
