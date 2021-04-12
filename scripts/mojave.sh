@@ -10,7 +10,7 @@ mojaveQuery=`dpkg-query -l | grep "mojave\|fonts\-roboto" | wc -l`
 if [ $mojaveQuery -lt 4 ]; then
 	sudo add-apt-repository --yes ppa:ubuntubudgie/backports
 	sudo apt-get update
-	sudo apt-get install mojave-gtk-theme mcmojave-circle fonts-roboto
+	sudo apt-get -y install mojave-gtk-theme mcmojave-circle fonts-roboto
 else
 	echo "Already installed. Skipping."
 fi

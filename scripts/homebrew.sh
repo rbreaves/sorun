@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 function main(){
-	if ! command -v brew &> /dev/null; then
+	if ! [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
 		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-		sudo apt-get install build-essential
+		sudo apt-get -y install build-essential
 		brew install gcc
 
 		currentShell=`ps -p $$ | tail -n1 | awk '{print $4}'`

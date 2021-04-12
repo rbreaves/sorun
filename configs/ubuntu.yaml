@@ -21,18 +21,18 @@ Install:
     # - virtualbox-ext-pack
   Snaps:
   Postscript:
+    - mojave
+    - ubuntu-budgie-defaults
     - kinto
     - homerc-files
-    - git-config
     - git-projects
     - touchpad-gnome-reverse
     - battery-gnome-percentage
     - time-12hr-gnome
-    - mojave
-    - ubuntu-budgie-defaults
     - terminal-zsh-defaults
     - homebrew
     - autojump
+    - git-config
     # - libinput-gestures
     # - hidpi-laptop-budgie
   # Done: echo "Congrats";
