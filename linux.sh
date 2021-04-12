@@ -32,6 +32,8 @@ source ./functions/colors.sh
 
 main() {
 
+	T="$(date +%s)"
+
 	which snap >/dev/null 2>&1
 	if [ $? -eq 1 ]; then
 		echo "Please install snap before continuing."
@@ -98,6 +100,10 @@ main() {
 			fi
 		done
 	fi
+
+	echo ""
+	T="$(($(date +%s)-T))"
+	date -d@$T -u +%H:%M:%S
 
 }
 
