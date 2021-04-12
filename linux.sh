@@ -4,15 +4,28 @@ echo -e "Kairos - Fast Dev Environment Setup Script\n"
 
 # Checks to see if running from the web or locally
 # will download for a local install if ran remotely
-if ! [[ -d "./configs" ]]; then
-	# echo "Please run this script from the proper root directory."
-	# exit 1
-	echo "Running indirectly, will download the latest and initiate the script from there."
-	curl -L -o ~/kairos-dev.tar.gz https://github.com/rbreaves/kairos/archive/refs/heads/dev.tar.gz
-	tar -xvzf ~/kairos-dev.tar.gz
-	cd ~/kairos-dev
-	./linux.sh
-	exit 1
+if [ "$1" == "--dev" ];then
+	if ! [[ -d "./configs" ]]; then
+		# echo "Please run this script from the proper root directory."
+		# exit 1
+		echo "Running indirectly, will download the latest and initiate the script from there."
+		curl -L -o ~/kairos-dev.tar.gz https://github.com/rbreaves/kairos/archive/refs/heads/dev.tar.gz
+		tar -xvzf ~/kairos-dev.tar.gz
+		cd ~/kairos-dev
+		./linux.sh
+		exit 1
+	fi
+else
+	if ! [[ -d "./configs" ]]; then
+		# echo "Please run this script from the proper root directory."
+		# exit 1
+		echo "Running indirectly, will download the latest and initiate the script from there."
+		curl -L -o ~/kairos-main.tar.gz https://github.com/rbreaves/kairos/archive/refs/heads/main.tar.gz
+		tar -xvzf ~/kairos-main.tar.gz
+		cd ~/kairos-dev
+		./linux.sh
+		exit 1
+	fi
 fi
 
 source ./functions/colors.sh

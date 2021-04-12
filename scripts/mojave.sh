@@ -33,9 +33,12 @@ gsettings set org.gnome.desktop.interface document-font-name "Roboto Regular 11"
 
 gsettings set org.gnome.desktop.background color-shading-type "solid"
 gsettings set org.gnome.desktop.background picture-options "stretched"
-gsettings set org.gnome.desktop.background picture-uri "file:////usr/share/backgrounds/budgie/ubuntu_budgie_wallpaper2.jpg"
+gsettings set org.gnome.desktop.background picture-uri "file:////usr/share/backgrounds/budgie/mountain-lake_by_william_beckwith.jpg"
 gsettings set org.gnome.desktop.background primary-color "#008094"
 
 gsettings set org.gnome.desktop.wm.preferences titlebar-font "Roboto Regular 11"
 gsettings set org.gnome.desktop.wm.preferences theme "Mojave-dark"
 gsettings set org.nemo.desktop font "Roboto Regular 11"
+
+gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ icon-size "72"
+gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ zoom-enabled "false"

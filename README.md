@@ -7,7 +7,7 @@ Fast Dev Environment Setup Script
 bash <( curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/rbreaves/kairos/HEAD/linux.sh )
 ```
 
-Note: For other branches replace HEAD with the branch name.
+Note: To run dev add --dev to the end, after the ")".
 
 Parameter options
 

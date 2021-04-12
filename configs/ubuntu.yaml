@@ -17,10 +17,13 @@ Install:
     - tmux
     - remmina
     - font-manager
+    - budgie-hotcorners-applet
+    - budgie-workspace-overview-applet
     # - virtualbox
     # - virtualbox-ext-pack
   Snaps:
   Postscript:
+    - printer-fix
     - mojave
     - ubuntu-budgie-defaults
     - kinto
