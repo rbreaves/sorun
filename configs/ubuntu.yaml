@@ -9,6 +9,7 @@ Install:
     - xfce4-terminal
     - git
     - zsh
+    - autojump
     - nemo-preview
     - sublime-text
     - code
@@ -38,8 +39,8 @@ Install:
     - battery-gnome-percentage
     - time-12hr-gnome
     - terminal-zsh-defaults
-    - homebrew
-    - autojump
+    # - homebrew
+    - autojump                  # Configures bash & zsh to source it
     - git-config
     # - libinput-gestures
     # - hidpi-laptop-budgie
