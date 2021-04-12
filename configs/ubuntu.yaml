@@ -10,6 +10,7 @@ Install:
     - git
     - zsh
     - autojump
+    - gir1.2-gtksource-4                # nemo-preview dependency
     - nemo-preview
     - sublime-text
     - code
