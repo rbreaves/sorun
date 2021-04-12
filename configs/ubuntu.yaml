@@ -26,6 +26,7 @@ Install:
     - budgie-indicator-applet
     - budgie-dropby-applet
     - budgie-network-manager-applet
+    - gnome-software-plugin-flatpak
     # - virtualbox
     # - virtualbox-ext-pack
   Snaps:
@@ -34,6 +35,7 @@ Install:
     - mojave
     - ubuntu-budgie-defaults
     - kinto
+    - flathub-repo
     - homerc-files
     - git-projects
     - touchpad-gnome-reverse
