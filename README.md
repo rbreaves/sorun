@@ -9,14 +9,6 @@ bash <( curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/rbre
 
 Note: When you reach the Oh-my-zsh install part you will need to also type in 'exit' for the installer to continue with the rest of the setup. Also if you want to run the dev branch add --dev to the end, after the ")".
 
-Parameter options
-
--l (lowercase L) - Install sublimetext 3 only, normal prompts
-
--k - automatically install Kinto without prompting
-
--a - Install all options, as few prompts as possible
-
 ## Install (Windows)
 
 ```
