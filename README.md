@@ -7,7 +7,7 @@ Fast Dev Environment Setup Script
 bash <( curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/rbreaves/kairos/HEAD/linux.sh )
 ```
 
-Note: To run dev add --dev to the end, after the ")".
+Note: When you reach the Oh-my-zsh install part you will need to also type in 'exit' for the installer to continue with the rest of the setup. Also if you want to run the dev branch add --dev to the end, after the ")".
 
 Parameter options
 
