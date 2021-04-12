@@ -22,7 +22,7 @@ else
 		echo "Running indirectly, will download the latest and initiate the script from there."
 		curl -L -o ~/kairos-main.tar.gz https://github.com/rbreaves/kairos/archive/refs/heads/main.tar.gz
 		tar -xvzf ~/kairos-main.tar.gz
-		cd ~/kairos-dev
+		cd ~/kairos-main
 		./linux.sh
 		exit 1
 	fi
