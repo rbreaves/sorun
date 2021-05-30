@@ -1,0 +1,19 @@
+/* ~/.config/gtk-3.0/gtk.css 
+Fixes Mojave theme to have thicker titlebars
+Also uses original Pop!_OS font 
+Spaces the Min/max/close buttons */
+
+
+.titlebar, header {
+    min-height: 0px;
+    padding: 12px;
+    margin: 0px;
+}
+
+.titlebar{
+    font-family: Fira Sans SemiBold;
+}
+
+button.titlebutton{
+    padding: 0px 3px 0px 3px;
+}
