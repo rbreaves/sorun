@@ -16,3 +16,8 @@ BYELLOW=$'\e[1;33m'
 GREEN=$'\e[0;32m'
 BGREEN=$'\e[1;32m'
 NC=$'\e[0m'
+
+ULINEYELLOW=$'\e[4;33m'
+ULINEWHITE=$'\e[4;37m'
+ULINEGREEN=$'\e[4;32m'
+ULINERED=$'\e[4;31m'

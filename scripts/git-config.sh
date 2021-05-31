@@ -20,8 +20,6 @@ main() {
 	fi
 }
 
-function prompt(){
-	source ./functions/prompt.sh
-}
+source ./functions/prompt.sh
 
 main "$@"; exit

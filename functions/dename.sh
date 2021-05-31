@@ -177,6 +177,6 @@ else
 	then
 	echo $DESKTOP
 	else
-	echo $DESKTOP $VERSION
+	echo $DESKTOP, $VERSION
 	fi
 fi
