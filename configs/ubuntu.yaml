@@ -5,45 +5,45 @@ DE: Budgie
 Install:
   Prescript:
     - openssh-config
-  # ncdu htop
   Packages:
-    # - xfce4-terminal
-    # - git
-    # - zsh
-    # - autojump
-    # - gir1.2-gtksource-4                # nemo-preview dependency
-    # - nemo-preview
-    # - sublime-text
-    # - code
+    - xfce4-terminal
+    - git
+    - zsh
+    - autojump
+    - gir1.2-gtksource-4                # nemo-preview dependency
+    - nemo-preview
+    - sublime-text
+    - code
     - ncdu
     - htop
-    # - tmux
-    # - remmina
-    # - font-manager
-    # - budgie-hotcorners-applet
-    # - budgie-workspace-overview-applet
-    # - budgie-applications-menu-applet
-    # - budgie-appmenu-applet
-    # - budgie-indicator-applet
-    # - budgie-dropby-applet
-    # - budgie-network-manager-applet
+    - tmux
+    - remmina
+    - font-manager
+    - budgie-hotcorners-applet
+    - budgie-workspace-overview-applet
+    - budgie-applications-menu-applet
+    - budgie-appmenu-applet
+    - budgie-indicator-applet
+    - budgie-dropby-applet
+    - budgie-network-manager-applet
     # - virtualbox
     # - virtualbox-ext-pack
   Snaps:
+  Flatpacks:
   Postscript:
-    # - printer-fix
-    # - mojave
-    # - ubuntu-budgie-defaults
-    # - kinto
-    # - homerc-files
-    # - git-projects
-    # - touchpad-gnome-reverse
-    # - battery-gnome-percentage
-    # - time-12hr-gnome
-    # - terminal-zsh-defaults
-    # # - homebrew
-    # - autojump                  # Configures bash & zsh to source it
-    # - git-config
+    - printer-fix
+    - mojave
+    - ubuntu-budgie-defaults
+    - kinto
+    - homerc-files
+    - git-projects
+    - touchpad-gnome-reverse
+    - battery-gnome-percentage
+    - time-12hr-gnome
+    - terminal-zsh-defaults
+    # - homebrew
+    - autojump                  # Configures bash & zsh to source it
+    - git-config
     # - libinput-gestures
     # - hidpi-laptop-budgie
   # Done: echo "Congrats";

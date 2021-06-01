@@ -2,10 +2,20 @@
 
 function isnum() { awk -v a="$1" 'BEGIN {print (a == a + 0)}'; }
 
+function running() { echo -e "${BYELLOW}$1${NC}"; }
+
+function canary() {
+	if [ $1 -eq 0 ]; then
+		echo -e "${BGREEN}$2${NC}"
+	else
+		echo -e "${BRED}$3${NC}"
+		return 1
+	fi
+}
+
 # Do not give users multiple choices that start with the same letter.
 # Use numbers if you need to. This is intended to be a simple prompt & answer.
 function prompt(){
-
 	# $1 - Question
 	# $2 - array of choices
 	choices="$2"
@@ -28,7 +38,7 @@ function prompt(){
 			if [ "$(tr [a-z] [A-Z] <<< "${i:0:1}")" == "a" ];then
 				showKeys+="[a]ll/"
 			else
-				showKeys+=$(tr [A-Z] [a-z] <<< "${i:0:1}")/
+				showKeys+=$(tr [A-Z] [a-z] <<< "${i:0:1}")
 			fi
 		fi
 	done
@@ -36,15 +46,19 @@ function prompt(){
 
 	IFS=@
 	while true; do
-	read -rep "${BWHITE}$1${NC} $showKeys" response
-		case "@${answerKeys[*]}@" in
-				(*"$response"*) response="$(tr [A-Z] [a-z] <<< $response)";break;;
-		esac
+		if [ ${#1} -gt 0 ]; then
+			question=$1' '
+		else
+			question=$1
+		fi
+		read -rep "${BWHITE}$question${NC}$showKeys" response
+			case "@${answerKeys[*]}@" in
+					(*"$response"*) response="$(tr [A-Z] [a-z] <<< $response)";break;;
+			esac
 	done
 
 	if [ "$response" == "" ]; then
 		response="$defaultKey"
 	fi
-
 	echo "$response"
 }

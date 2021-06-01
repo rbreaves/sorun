@@ -59,26 +59,45 @@ main() {
 	fi
 
 	# Cleans up yaml file
-	eval $(yq eval '.. | select((tag == "!!map" or tag == "!!seq") | not) | (path | join("_")) + "=" + .' ./configs/ubuntu.yaml \
-		| awk '!/=$/{print }' | sed "s/\"/\\\\\"/g" | awk -F'=' '{print $1"=""\""$2"\""}' | sed "s/_\([0-9]\+\)=/\[\1\]=/gm")
+	# eval $(yq eval '.. | select((tag == "!!map" or tag == "!!seq") | not) | (path | join("_")) + "=" + .' ./configs/ubuntu.yaml \
+	# 	| awk '!/=$/{print }' | sed "s/\"/\\\\\"/g" | awk -F'=' '{print $1"=""\""$2"\""}' | sed "s/_\([0-9]\+\)=/\[\1\]=/gm")
 	# | remove blanks | escapes existing quotes | properly quotes values
-
-	# yq eval 'select(.Distro == "Ubuntu")' ./configs/ubuntu.yaml | grep "DE: Gnome"
-
-	# echo "$Install_Postscript"
-	# eval "$Install_After"
 
 	distro=$(awk -F= '$1=="NAME" { print $2 ;}' /etc/os-release | tr -d \'\")
 	destring=$("./functions/dename.sh")
 	IFS=', ' read -r -a dearray <<< "$destring"
 	dename=${dearray[0]}
 	deversion=${dearray[1]}
+	distroversion=""
+
+	configs="./configs/*"
+	no_match=1
+	for f in $configs; do
+		# echo "Processing $f file..."
+		yq eval "select(.Distro == \"`echo $distro`\")" $f | grep -q "DE: $dename$"
+		if [ $? -eq 0 ]; then
+			no_match=0
+			eval $(yq eval '.. | select((tag == "!!map" or tag == "!!seq") | not) | (path | join("_")) + "=" + .' $f \
+			| awk '!/=$/{print }' | sed "s/\"/\\\\\"/g" | awk -F'=' '{print $1"=""\""$2"\""}' | sed "s/_\([0-9]\+\)=/\[\1\]=/gm")
+		fi
+	done
+
+	# yq eval 'select(.Distro == "Ubuntu")' ./configs/ubuntu.yaml | grep "DE: Gnome"
+
+	# echo "$Install_Postscript"
+	# eval "$Install_After"
 
 	echo "${BWHITE}Setup templates are based on these parameters.${NC}"
 	echo ""
 	echo "${BWHITE}Distro Release:${NC} ${BGREEN}$distro${NC}"
 	echo "${BWHITE}Desktop Environment:${NC} ${BGREEN}$dename${NC}"
 	echo "${BWHITE}DE Version:${NC} ${BGREEN}$deversion${NC}"
+	echo "${BWHITE}Distro Version:${NC} ${BGREEN}$distroversion${NC}"
+
+	if [ $no_match -eq 1 ]; then
+		echo "No config file for your OS was found."
+		exit 0
+	fi
 
 	if [ -n "${Install_Prescript}" ]; then
 		echo ""
