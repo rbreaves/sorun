@@ -31,7 +31,7 @@ function prompt(){
 			if [ "$(tr [a-z] [A-Z] <<< "${i:1:1}")" == "a" ];then
 				showKeys="[${BGREEN}A${NC}]ll/${showKeys}"
 			else
-				showKeys="${BGREEN}$(tr [a-z] [A-Z] <<< "${i:1:1}")${NC}/${showKeys}"
+				showKeys="${BGREEN}$(tr [a-z] [A-Z] <<< "${i:1:1}")${NC}/"
 			fi
 		else
 			answerKeys+="$(tr [a-z] [A-Z] <<< "${i:0:1}")""$(tr [A-Z] [a-z] <<< "${i:0:1}")"
@@ -42,7 +42,6 @@ function prompt(){
 			fi
 		fi
 	done
-	showKeys=["${showKeys::-1}"]
 
 	IFS=@
 	while true; do
@@ -51,7 +50,7 @@ function prompt(){
 		else
 			question=$1
 		fi
-		read -rep "${BWHITE}$question${NC}$showKeys" response
+		read -rep "${BWHITE}$question${NC}[$showKeys]" response
 			case "@${answerKeys[*]}@" in
 					(*"$response"*) response="$(tr [A-Z] [a-z] <<< $response)";break;;
 			esac

@@ -4,7 +4,14 @@ main() {
 	dead_canary=0
 
 	unconfirmed=true
-	question='Would you like install & enable openssh-server?'
+	success="You already have the SSH service running, skipping the install of it."
+	failure=""
+	systemctl is-active sshd >/dev/null 2>&1
+	canary $? "$success" "$failure"
+	if [ $? -eq 0 ]; then
+		exit 0;
+	fi
+	question='Would you like to install &/or enable openssh-server?'
 	choices=(*yes no)
 	response=$(prompt "$question" $choices)
 	
@@ -23,6 +30,24 @@ main() {
 				unset port
 			else
 				unconfirmed=false
+				success="Updated SSH port successuflly."
+				failure="Failed to update SSH port! :/"
+				grep -q "^#Port $port$" /etc/ssh/sshd_config
+				if [ $? -eq 0 ]; then
+					# Uncomment out a port if it exists, only the first and exact match
+					echo "Uncommenting an existing port entry..."
+					sudo sed -i "0,/^#Port $port$/{s/^#Port $port\$/Port 22/}" /etc/ssh/sshd_config
+					canary $? "$success" "$failure"
+				else
+					# Comment out any active port
+					sudo sed -i 's/(\n)(Port .*)/$1#$2/' /etc/ssh/sshd_config
+					sleep 0.1
+					addport_line=$(awk '/#Port/ {print FNR; exit}' /etc/ssh/sshd_config)
+					echo $addport_line
+					sudo sed -i "$addport_line i Port $port" /etc/ssh/sshd_config
+					canary $? "$success" "$failure"
+				fi
+				dead_canary=$((($(echo $?)==1) ? 1 : $dead_canary ))
 			fi
 		done
 	else
@@ -58,7 +83,7 @@ main() {
 	running "Now installing openssh-server & client..."
 	success="Success! OpenSSH Server & Client is installed."
 	failure="Failure! OpenSSH Server & Client did not install."
-	sudo apt install -y openssh-server openssh-client
+	sudo apt-get install -qqy openssh-server openssh-client
 	canary $? "$success" "$failure"
 	dead_canary=$((($(echo $?)==1) ? 1 : $dead_canary ))
 
@@ -121,29 +146,33 @@ main() {
 	fi
 
 	# running "Disable password authentication? Key pairs only will be accepted."
-	allow_users=$(awk '/AllowUsers (.*)/ { $1="";sub(/^[ \t]+/, "");print }' /etc/ssh/sshd_config)
+	allow_users=$(awk '/AllowUsers (.*)/ { $1="";sub(/^[ \t]+/, ""); print }' /etc/ssh/sshd_config)
 	success="AllowUsers $allow_users already found in sshd_config. Skipping."
 	failure="AllowUsers not found in sshd_config."
+	awk '/AllowUsers (.*)/ {rc = 1}; END { exit !rc }' /etc/ssh/sshd_config
 	canary $? "$success" "$failure"
 	if [ $? -eq 1 ]; then
-
 		question="Which users should be allowed to use SSH? Default[ `whoami` ] (add a space btwn each user):"
 		read -rep "${BWHITE}$question ${NC}" allow_users
 		if [ -z "$allow_users" ]; then
 			allow_users=$(whoami)
 		fi
-		success="Added $allower_users to AllowUsers."
-		failure="Failed to add $allower_users to AllowUsers."
+		success="Added $allow_users to AllowUsers."
+		failure="Failed to add $allow_users to AllowUsers."
 		echo "AllowUsers $allow_users" | sudo tee -a /etc/ssh/sshd_config
 		canary $? "$success" "$failure"
+		dead_canary=$((($(echo $?)==1) ? 1 : $dead_canary ))
 	fi
 
+	success="\nComplete success on installing and configuring SSH.\nWill now restart ssh."
+	failure="\nA failure occurred. Will not be restarting ssh service."
+	canary $dead_canary "$success" "$failure"
+	if [ "$dead_canary" -eq 1 ];then
 
-	if $dead_canary; then
-		exit 1
+		exit 1;
 	else
-		sudo systemd restart ssh
-		exit 0
+		sudo systemctl restart ssh;
+		exit 0;
 	fi
 }
 
