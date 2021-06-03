@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-echo -e "Kairos - Fast Dev Environment Setup Script\n"
-
 # Checks to see if running from the web or locally
 # will download for a local install if ran remotely
 if [ "$1" == "--dev" ];then
@@ -32,6 +30,8 @@ source ./functions/colors.sh
 
 main() {
 
+	echo -e "${BWHITE}Kairos - ${NC}${BRED}Fast${NC} ${BYELLOW}Dev${NC} ${BGREEN}Environment${NC} ${BWHITE}Setup Script${NC}\n"
+
 	which snap >/dev/null 2>&1
 	if [ $? -eq 1 ]; then
 		echo "Please install snap before continuing."
@@ -59,18 +59,70 @@ main() {
 	fi
 
 	# Cleans up yaml file
-	eval $(yq eval '.. | select((tag == "!!map" or tag == "!!seq") | not) | (path | join("_")) + "=" + .' ./configs/ubuntu.yaml \
-		| awk '!/=$/{print }' | sed "s/\"/\\\\\"/g" | awk -F'=' '{print $1"=""\""$2"\""}' | sed "s/_\([0-9]\+\)=/\[\1\]=/gm")
+	# eval $(yq eval '.. | select((tag == "!!map" or tag == "!!seq") | not) | (path | join("_")) + "=" + .' ./configs/ubuntu.yaml \
+	# 	| awk '!/=$/{print }' | sed "s/\"/\\\\\"/g" | awk -F'=' '{print $1"=""\""$2"\""}' | sed "s/_\([0-9]\+\)=/\[\1\]=/gm")
 	# | remove blanks | escapes existing quotes | properly quotes values
+
+	distro=$(awk -F= '$1=="NAME" { print $2 ;}' /etc/os-release | tr -d \'\")
+	destring=$("./functions/dename.sh")
+	IFS=', ' read -r -a dearray <<< "$destring"
+	dename=${dearray[0]}
+	deversion=${dearray[1]}
+	distroversion=""
+
+	configs="./configs/*"
+	no_match=1
+	for f in $configs; do
+		# echo "Processing $f file..."
+		yq eval "select(.Distro == \"`echo $distro`\")" $f | grep -q "DE: $dename$"
+		if [ $? -eq 0 ]; then
+			no_match=0
+			eval $(yq eval '.. | select((tag == "!!map" or tag == "!!seq") | not) | (path | join("_")) + "=" + .' $f \
+			| awk '!/=$/{print }' | sed "s/\"/\\\\\"/g" | awk -F'=' '{print $1"=""\""$2"\""}' | sed "s/_\([0-9]\+\)=/\[\1\]=/gm")
+		fi
+	done
 
 	# yq eval 'select(.Distro == "Ubuntu")' ./configs/ubuntu.yaml | grep "DE: Gnome"
 
 	# echo "$Install_Postscript"
 	# eval "$Install_After"
 
-	if [ -n "${Install_Packages}" ]; then
+	echo "${BWHITE}Setup templates are based on these parameters.${NC}"
+	echo ""
+	echo "${BWHITE}Distro Release:${NC} ${BGREEN}$distro${NC}"
+	echo "${BWHITE}Desktop Environment:${NC} ${BGREEN}$dename${NC}"
+	echo "${BWHITE}DE Version:${NC} ${BGREEN}$deversion${NC}"
+	echo "${BWHITE}Distro Version:${NC} ${BGREEN}$distroversion${NC}"
+
+	if [ $no_match -eq 1 ]; then
+		echo "No config file for your OS was found."
+		exit 0
+	fi
+
+	if [ -n "${Install_Prescript}" ]; then
 		echo ""
-		echo "Packages queued to run: ${Install_Packages[@]}"
+		# sudo apt-get update
+		# if [ echo $? ]; then
+		# 	updateRan=true;
+		# fi
+		echo "${ULINEYELLOW}Phase 1/3 Pre-Install [ Pre-setup scripts: ${Install_Prescript[@]} ]${NC}"
+		for i in "${Install_Prescript[@]}";do
+			if [ -f "./prescript/$i.sh" ]; then
+				echo ""
+				echo "${BYELLOW}Running prescript $i...${NC}"
+				bash "./prescript/$i.sh"
+				if [[ $(echo $?) -eq 1 ]]; then
+					echo "${BRED}**Finished $i with errors.**${NC}"
+				else
+					echo "${BGREEN}*Finished $i.*${NC}"
+				fi
+			fi
+		done
+	fi
+
+	echo ""
+	if [ -n "${Install_Packages}" ]; then
+		echo "${ULINEYELLOW}Phase 2/3 Install Packages [ queued to run: ${Install_Packages[@]} ]${NC}"
 		for i in "${Install_Packages[@]}";do
 			if [ -f "./repos/$i.sh" ]; then
 				echo ""
@@ -81,14 +133,24 @@ main() {
 		done
 		echo ""
 		echo "${BYELLOW}Installing all packages...${NC}"
-		sudo apt-get update
-		sudo apt-get -y install "${Install_Packages[@]}"
+		# if [ -z updateRan ]; then
+		# 	sudo apt-get update
+		# fi
+		for i in "${Install_Packages[@]}";do
+			sudo apt-get -y install $i
+			if [[ $(echo $?) -eq 1 ]]; then
+				echo "${BRED}**Failed to install $i.**${NC}"
+			# else
+			# 	echo "${BGREEN}*Finished $i.*${NC}"
+			fi
+		done
+		# sudo apt-get -y install "${Install_Packages[@]}"
 		echo "${BGREEN}Finished installing packages.${NC}"
 	fi
 
+	echo ""
 	if [ -n "${Install_Postscript}" ]; then
-		echo ""
-		echo "Install scripts queued to run: ${Install_Postscript[@]}"
+		echo "${ULINEYELLOW}Phase 3/3 [ Install scripts queued to run: ${Install_Postscript[@]} ]${NC}"
 		for i in "${Install_Postscript[@]}";do
 			if [ -f "./scripts/$i.sh" ]; then
 				echo ""
@@ -97,12 +159,12 @@ main() {
 				echo "${BGREEN}Finished $i.${NC}"
 			fi
 		done
+	else
+		echo "${ULINEYELLOW}Phase 3/3 Remove packages [ Skipping. Nothing configured. ]${NC}"
 	fi
 
 }
 
-function prompt(){
-	source ./functions/prompt.sh
-}
+source ./functions/prompt.sh
 
 main "$@"; exit

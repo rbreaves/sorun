@@ -4,7 +4,7 @@ DE: Budgie
 # de-version:
 Install:
   Prescript:
-  # ncdu htop
+    - openssh-config
   Packages:
     - xfce4-terminal
     - git
@@ -29,6 +29,7 @@ Install:
     # - virtualbox
     # - virtualbox-ext-pack
   Snaps:
+  Flatpacks:
   Postscript:
     - printer-fix
     - mojave

@@ -54,9 +54,6 @@ function main(){
 }
 
 source ./functions/colors.sh
-
-function prompt(){
-	source ./functions/prompt.sh
-}
+source ./functions/prompt.sh
 
 main "$@"; exit
