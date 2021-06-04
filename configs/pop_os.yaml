@@ -26,6 +26,7 @@ Install:
     - tmux
     - remmina
     - font-manager
+    - plank
     # - virtualbox
     # - virtualbox-ext-pack
   Snaps:

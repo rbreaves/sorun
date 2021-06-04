@@ -20,6 +20,8 @@ function service_exists() {
 function isnum() { awk -v a="$1" 'BEGIN {print (a == a + 0)}'; }
 
 function running() { echo -e "${BYELLOW}$1${NC}"; }
+function ransuccess() { echo -e "${BGREEN}$1${NC}"; }
+function ranfailure() { echo -e "${BRED}$1${NC}"; }
 
 function canary() {
 	if [ $1 -eq 0 ]; then

@@ -12,7 +12,7 @@ main () {
 		if [ $mojaveQuery -lt 4 ]; then
 			sudo add-apt-repository --yes ppa:ubuntubudgie/backports
 			sudo apt-get update
-			sudo apt-get -y install mojave-gtk-theme mcmojave-circle fonts-roboto
+			sudo apt-get $apt_quiet -y install mojave-gtk-theme mcmojave-circle fonts-roboto
 		else
 			echo "Already installed mojave ppa:ubuntubudgie/backports. Skipping."
 		fi

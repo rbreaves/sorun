@@ -119,10 +119,10 @@ main() {
 
 	if [ -n "${Install_Prescript}" ]; then
 		echo ""
-		# sudo apt-get update
-		# if [ echo $? ]; then
-		# 	updateRan=true;
-		# fi
+		sudo apt-get update
+		if [ echo $? ]; then
+			updateRan=true;
+		fi
 		echo "${ULINEYELLOW}Phase 1/3 Pre-Install [ Pre-setup scripts: ${Install_Prescript[@]} ]${NC}"
 		for i in "${Install_Prescript[@]}";do
 			if [ -f "./prescript/$i.sh" ]; then
@@ -156,18 +156,18 @@ main() {
 			done
 			echo ""
 			echo "${BYELLOW}Installing all packages...${NC}"
-			# if [ -z updateRan ]; then
-			# 	sudo apt-get update
-			# fi
+			if [ -z updateRan ]; then
+				sudo apt-get update
+			fi
 			count=1
 			for i in "${Install_Packages[@]}";do
 				sudo apt-get $apt_quiet -y install $i
 				if [[ $(echo $?) -eq 1 ]]; then
-					echo "${BRED}**Failed to install $i.**${NC}"
+					ranfailure "**Failed to install $i.**"
 				# else
 				# 	echo "${BGREEN}*Finished $i.*${NC}"
 				else
-					echo "[$count/${#Install_Packages[@]}] $i install succeeded."
+					ransuccess "[$count/${#Install_Packages[@]}] $i install succeeded."
 				fi
 				count=$((count+1))
 			done
