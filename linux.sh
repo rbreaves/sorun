@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+
+apt_quiet="-qq"
+
 # Checks to see if running from the web or locally
 # will download for a local install if ran remotely
 if [ "$1" == "--dev" ];then
@@ -13,6 +16,8 @@ if [ "$1" == "--dev" ];then
 		./linux.sh
 		exit 1
 	fi
+elif [ "$1" == "--debug" ];then
+	apt_quiet=""
 else
 	if ! [[ -d "./configs" ]]; then
 		# echo "Please run this script from the proper root directory."
@@ -62,13 +67,6 @@ main() {
 	# eval $(yq eval '.. | select((tag == "!!map" or tag == "!!seq") | not) | (path | join("_")) + "=" + .' ./configs/ubuntu.yaml \
 	# 	| awk '!/=$/{print }' | sed "s/\"/\\\\\"/g" | awk -F'=' '{print $1"=""\""$2"\""}' | sed "s/_\([0-9]\+\)=/\[\1\]=/gm")
 	# | remove blanks | escapes existing quotes | properly quotes values
-
-	distro=$(awk -F= '$1=="NAME" { print $2 ;}' /etc/os-release | tr -d \'\")
-	destring=$("./functions/dename.sh")
-	IFS=', ' read -r -a dearray <<< "$destring"
-	dename=${dearray[0]}
-	deversion=${dearray[1]}
-	distroversion=""
 
 	configs="./configs/*"
 	no_match=1
@@ -122,35 +120,49 @@ main() {
 
 	echo ""
 	if [ -n "${Install_Packages}" ]; then
-		echo "${ULINEYELLOW}Phase 2/3 Install Packages [ queued to run: ${Install_Packages[@]} ]${NC}"
-		for i in "${Install_Packages[@]}";do
-			if [ -f "./repos/$i.sh" ]; then
-				echo ""
-				echo "${BYELLOW}Adding repo for $i...${NC}"
-				"./repos/$i.sh"
-				# echo "${BGREEN}Finished $i.${NC}"
-			fi
-		done
-		echo ""
-		echo "${BYELLOW}Installing all packages...${NC}"
-		# if [ -z updateRan ]; then
-		# 	sudo apt-get update
-		# fi
-		for i in "${Install_Packages[@]}";do
-			sudo apt-get -y install $i
-			if [[ $(echo $?) -eq 1 ]]; then
-				echo "${BRED}**Failed to install $i.**${NC}"
-			# else
-			# 	echo "${BGREEN}*Finished $i.*${NC}"
-			fi
-		done
-		# sudo apt-get -y install "${Install_Packages[@]}"
-		echo "${BGREEN}Finished installing packages.${NC}"
+		echo "${ULINEYELLOW}Phase 2/3 Install Packages${NC}"
+		echo -e "${BWHITE}The following packages are about to be installed, do you want to proceed?${NC}\n${Install_Packages[@]}"
+		question=""
+		choices=(*yes no)
+		response=$(prompt "$question" $choices)
+		if [ "$response" == "y" ];then
+			for i in "${Install_Packages[@]}";do
+				if [ -f "./repos/$i.sh" ]; then
+					echo ""
+					echo "${BYELLOW}Adding repo for $i...${NC}"
+					"./repos/$i.sh"
+					# echo "${BGREEN}Finished $i.${NC}"
+				fi
+			done
+			echo ""
+			echo "${BYELLOW}Installing all packages...${NC}"
+			# if [ -z updateRan ]; then
+			# 	sudo apt-get update
+			# fi
+			count=1
+			for i in "${Install_Packages[@]}";do
+				sudo apt-get $apt_quiet -y install $i
+				if [[ $(echo $?) -eq 1 ]]; then
+					echo "${BRED}**Failed to install $i.**${NC}"
+				# else
+				# 	echo "${BGREEN}*Finished $i.*${NC}"
+				else
+					echo "[$count/${#Install_Packages[@]}] $i install succeeded."
+				fi
+				count=$((count+1))
+			done
+			# sudo apt-get -y install "${Install_Packages[@]}"
+			echo "${BGREEN}Finished installing packages.${NC}"
+		else
+			echo -e "${ULINEYELLOW}Phase 2/3 Install Packages [ Skipping. User did not want to install pkgs. ]${NC}"
+		fi
+	else
+		echo -e "${ULINEYELLOW}Phase 2/3 Install Packages [ Skipping. Nothing configured. ]${NC}"
 	fi
 
 	echo ""
 	if [ -n "${Install_Postscript}" ]; then
-		echo "${ULINEYELLOW}Phase 3/3 [ Install scripts queued to run: ${Install_Postscript[@]} ]${NC}"
+		echo -e "${ULINEYELLOW}Phase 3/3 [ Install scripts queued to run: ${Install_Postscript[@]} ]${NC}"
 		for i in "${Install_Postscript[@]}";do
 			if [ -f "./scripts/$i.sh" ]; then
 				echo ""
@@ -160,8 +172,10 @@ main() {
 			fi
 		done
 	else
-		echo "${ULINEYELLOW}Phase 3/3 Remove packages [ Skipping. Nothing configured. ]${NC}"
+		echo -e "${ULINEYELLOW}Phase 3/3 Remove packages [ Skipping. Nothing configured. ]${NC}\n"
 	fi
+
+	echo -e "\nIf your terminal looks weird, aka broken fonts, theme, etc, you may need to close it and re-open it or even log off and back on for the zsh default shell to take effect."
 
 }
 

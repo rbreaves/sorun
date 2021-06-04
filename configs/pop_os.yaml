@@ -1,4 +1,4 @@
-Distro: Pop!_OS
+Distro: pop!_os
 DE: gnome
 # distro-version:
 # de-version:
@@ -7,35 +7,38 @@ Install:
     - openssh-config
   # ncdu htop
   Packages:
-    # - xfce4-terminal
-    # - snapd
-    # - git
-    # - zsh
-    # - nemo
-    # - autojump
-    # - gir1.2-gtksource-4                # nemo-preview dependency
-    # - nemo-preview
-    # - sublime-text
-    # - code
+    - xfce4-terminal
+    - xfce4-panel
+    - snapd
+    - gnome-tweaks
+    - gnome-shell-extensions
+    - chrome-gnome-shell
+    - git
+    - zsh
+    - nemo
+    - autojump
+    - gir1.2-gtksource-4                # nemo-preview dependency
+    - nemo-preview
+    - sublime-text
+    - code
     - ncdu
     - htop
-    # - tmux
-    # - remmina
-    # - font-manager
+    - tmux
+    - remmina
+    - font-manager
     # - virtualbox
     # - virtualbox-ext-pack
   Snaps:
   Postscript:
-    # - mojave
-    # - ubuntu-budgie-defaults
-    # - kinto
-    # - homerc-files
-    # - git-projects
-    # - touchpad-gnome-reverse
-    # - terminal-zsh-defaults
+    - mojave
+    - kinto
+    - homerc-files
+    - git-projects
+    - touchpad-gnome-reverse
+    - terminal-zsh-defaults
     # # - homebrew
-    # - autojump                  # Configures bash & zsh to source it
-    # - git-config
+    - autojump                  # Configures bash & zsh to source it
+    - git-config
     # - libinput-gestures
     # - hidpi-laptop-budgie
   # Done: echo "Congrats";

@@ -1,5 +1,5 @@
-Distro: Ubuntu
-DE: Budgie
+Distro: ubuntu
+DE: budgie
 # distro-version:
 # de-version:
 Install:
@@ -7,6 +7,7 @@ Install:
     - openssh-config
   Packages:
     - xfce4-terminal
+    - gnome-tweaks
     - git
     - zsh
     - autojump

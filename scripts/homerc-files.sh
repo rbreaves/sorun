@@ -1,22 +1,48 @@
 #!/usr/bin/env bash
 
-file="$HOME/.vimrc"
+main () {
+	dead_canary=0
 
-# Backup file if needed
-latestBackup="./backups/`ls -A1 ./backups | grep "^.vimrc" | tail -n1`"
-if [ -f ~/.vimrc ] && [ "$latestBackup" != "./backups/" ];then
-	if ! diff -u ~/.vimrc "$latestBackup" > /dev/null;then
-		echo "~/.vimrc file differs, will back it up before updating it."
+	file="$HOME/.vimrc"
+	sudo_file="/root/.vimrc"
+
+	mkdir -p ~/backups
+
+	# Backup file if needed
+	latestBackup="./backups/`ls -A1 ./backups | grep "^.vimrc" | tail -n1`"
+	if [ -f ~/.vimrc ] && [ "$latestBackup" != "./backups/" ];then
+		if ! diff -u ~/.vimrc "$latestBackup" > /dev/null;then
+			echo "~/.vimrc file differs, will back it up before updating it."
+			cp "$file" ./backups/.vimrc.`date "+%y-%m-%d_%H%M%S"`.bak
+		fi
+	elif [ -f ~/.vimrc ];then
+		echo "Creating 1st backup"
 		cp "$file" ./backups/.vimrc.`date "+%y-%m-%d_%H%M%S"`.bak
 	fi
-elif [ -f ~/.vimrc ];then
-	echo "Creating 1st backup"
-	cp "$file" ./backups/.vimrc.`date "+%y-%m-%d_%H%M%S"`.bak
-fi
-# End backup
+	# End backup
 
-# Check each line and add if needed
-cat ./assets/.vimrc | while read line || [[ -n $line ]];
-do
-	grep -qF -- "$line" "$file" || echo "$line" >> "$file"
-done
+	# Check each sudo line and add if needed
+	cat ./assets/.vimrc | while read line || [[ -n $line ]];
+	do
+		grep -qF -- "$line" "$file" || echo "$line" >> "$file"
+	done
+
+	question="Would you like to copy a basic .vimrc file from $HOME to /root/.vimrc to resolve arrow key & insert issues?"
+	choices=(*yes no)
+	response=$(prompt "$question" $choices)
+	if [ "$response" == "y" ];then
+		sudo mkdir -p /root/backups
+		sudo cp /root/.vimrc /root/backups/.vimrc.`date "+%y-%m-%d_%H%M%S"`.bak
+		success=".vimrc copied to root successfully."
+		failure=".vimrc failed to copy to root."
+		sudo cp $HOME/.vimrc /root/.vimrc
+		canary $? "$success" "$failure"
+		dead_canary=$((($(echo $?)==1) ? 1 : $dead_canary ))
+	fi
+
+}
+
+source ./functions/colors.sh
+source ./functions/prompt.sh
+
+main "$@"

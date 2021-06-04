@@ -1,5 +1,22 @@
 #!/usr/bin/env bash
 
+distro=$(awk -F= '$1=="NAME" { print tolower($2) ;}' /etc/os-release | tr -d \'\")
+destring=$("./functions/dename.sh")
+IFS=', ' read -r -a dearray <<< "$destring"
+dename=$(echo ${dearray[0]} | awk '{print tolower($0)}')
+deversion=${dearray[1]}
+distroversion=""
+
+function service_exists() {
+    local n=$1
+    if [[ $(systemctl list-units --all -t service --full --no-legend "$n.service" | cut -f1 -d' ') == $n.service ]]; then
+        return 0
+    else
+        return 1
+    fi
+    # https://stackoverflow.com/questions/24398242/check-if-service-exists-in-bash-centos-and-ubuntu
+}
+
 function isnum() { awk -v a="$1" 'BEGIN {print (a == a + 0)}'; }
 
 function running() { echo -e "${BYELLOW}$1${NC}"; }
