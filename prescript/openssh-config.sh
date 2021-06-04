@@ -14,7 +14,6 @@ main() {
 	question='Would you like to install &/or enable openssh-server?'
 	choices=(*yes no)
 	response=$(prompt "$question" $choices)
-	
 	if [ "$response" == "y" ];then
 		while $unconfirmed; do
 			while [ $(isnum "$port") -eq 0 ]; do
@@ -25,29 +24,11 @@ main() {
 			done
 			question="Just to confirm you want port $port?"
 			choices=(*yes no)
-			response=$(prompt "$question" $choices)
-			if [ "$response" == "n" ];then
+			port_response=$(prompt "$question" $choices)
+			if [ "$port_response" == "n" ];then
 				unset port
 			else
 				unconfirmed=false
-				success="Updated SSH port successuflly."
-				failure="Failed to update SSH port! :/"
-				grep -q "^#Port $port$" /etc/ssh/sshd_config
-				if [ $? -eq 0 ]; then
-					# Uncomment out a port if it exists, only the first and exact match
-					echo "Uncommenting an existing port entry..."
-					sudo sed -i "0,/^#Port $port$/{s/^#Port $port\$/Port 22/}" /etc/ssh/sshd_config
-					canary $? "$success" "$failure"
-				else
-					# Comment out any active port
-					sudo sed -i 's/(\n)(Port .*)/$1#$2/' /etc/ssh/sshd_config
-					sleep 0.1
-					addport_line=$(awk '/#Port/ {print FNR; exit}' /etc/ssh/sshd_config)
-					echo $addport_line
-					sudo sed -i "$addport_line i Port $port" /etc/ssh/sshd_config
-					canary $? "$success" "$failure"
-				fi
-				dead_canary=$((($(echo $?)==1) ? 1 : $dead_canary ))
 			fi
 		done
 	else
@@ -83,9 +64,33 @@ main() {
 	running "Now installing openssh-server & client..."
 	success="Success! OpenSSH Server & Client is installed."
 	failure="Failure! OpenSSH Server & Client did not install."
-	sudo apt-get install -qqy openssh-server openssh-client
+	sudo apt-get install $apt_quiet -y openssh-server openssh-client
 	canary $? "$success" "$failure"
 	dead_canary=$((($(echo $?)==1) ? 1 : $dead_canary ))
+
+	# Finish the port setup now that ssh is installed
+	if [ "$port_response" == "n" ];then
+		unset port
+	else
+		success="Updated SSH port successuflly."
+		failure="Failed to update SSH port! :/"
+		grep -q "^#Port $port$" /etc/ssh/sshd_config
+		if [ $? -eq 0 ]; then
+			# Uncomment out a port if it exists, only the first and exact match
+			echo "Uncommenting an existing port entry..."
+			sudo sed -i "0,/^#Port $port$/{s/^#Port $port\$/Port 22/}" /etc/ssh/sshd_config
+			canary $? "$success" "$failure"
+		else
+			# Comment out any active port
+			sudo sed -i 's/(\n)(Port .*)/$1#$2/' /etc/ssh/sshd_config
+			sleep 0.1
+			addport_line=$(awk '/#Port/ {print FNR; exit}' /etc/ssh/sshd_config)
+			echo $addport_line
+			sudo sed -i "$addport_line i Port $port" /etc/ssh/sshd_config
+			canary $? "$success" "$failure"
+		fi
+		dead_canary=$((($(echo $?)==1) ? 1 : $dead_canary ))
+	fi
 
 	running "Verifying that the SSH service is running..."
 	success="SSH Service is running."
@@ -106,7 +111,7 @@ main() {
 			echo -e "\nWhat would you like to do?\n\n${BGREEN}1) Create a new key-pair${NC}\n2) Cancel\n"
 			# \n2) Change your key-pair path to an existing key
 			question=""
-			choices=("*1" 2 3)
+			choices=("*1" 2)
 			response=$(prompt "$question" "$choices")
 			if [ "$response" == "1" ];then
 				success="Key-pair created successfully."

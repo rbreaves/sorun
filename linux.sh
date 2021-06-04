@@ -39,8 +39,28 @@ main() {
 
 	which snap >/dev/null 2>&1
 	if [ $? -eq 1 ]; then
-		echo "Please install snap before continuing."
-		exit 0
+		question="To continue we will need to install the Snap Package Manager. Is this ok?"
+		choices=(*yes no)
+		response=$(prompt "$question" $choices)
+		if [ "$response" == "y" ];then
+			success="Snapd installed successfully, now continuing..."
+			failure="Snapd failed to install. Cancelling install."
+			echo "Apt-get updating, please wait..."
+			sudo apt-get $apt_quiet update
+			running "If snapd hangs with 'Waiting for server to restart' you can run the following in another tab."
+			echo "sudo systemctl restart snapd snapd.socket\n"
+			echo "Installing snapd, please wait..."
+			sudo apt-get $apt_quiet -y install snapd
+			canary $? "$success" "$failure"
+			if [ $? -eq 0 ]; then
+				snap install yq
+			else
+				exit 0
+			fi
+		else
+			echo "User cancelled installed."
+			exit 0
+		fi
 		
 		# question='Add ppa:rmescandon/yq for parsing yaml configs?'
 		# choices=(*yes no cancel all)
