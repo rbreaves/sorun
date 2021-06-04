@@ -10,6 +10,7 @@ Install:
     - xfce4-terminal
     - xfce4-panel
     - snapd
+    - locate
     - gnome-tweaks
     - gnome-shell-extensions
     - chrome-gnome-shell
