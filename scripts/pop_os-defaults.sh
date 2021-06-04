@@ -51,6 +51,7 @@ main () {
 
 	cp ./assets/Pop_OS/gtk.css ~/.config/gtk-3.0/gtk.css
 	cp -a ./assets/xfce4/. ~/.config/xfce4/
+	cp -a ./assets/plank/. ~/.config/plank/
 
 	echo -e "Please be patient. Do not freakout, GnomeShell will come back normally...\nRestarting now to apply gnome extensions."
 	dbus-send --type=method_call --print-reply --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'
