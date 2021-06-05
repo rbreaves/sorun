@@ -6,6 +6,7 @@ apt_quiet="-qq"
 # Checks to see if running from the web or locally
 # will download for a local install if ran remotely
 if [ "$1" == "--dev" ];then
+	echo "Entered Dev Branch Mode"
 	if ! [[ -d "./configs" ]]; then
 		# echo "Please run this script from the proper root directory."
 		# exit 1
@@ -17,6 +18,7 @@ if [ "$1" == "--dev" ];then
 		exit 1
 	fi
 elif [ "$1" == "--debug" ];then
+	echo "Entered Debug Mode"
 	apt_quiet=""
 else
 	if ! [[ -d "./configs" ]]; then
@@ -35,32 +37,49 @@ source ./functions/colors.sh
 
 main() {
 
+	echo "Apt parameters: $apt_quiet"
+	echo "Temporarily disabling IPv6 to avoid possible delays and hanging processes."
+	echo -e "sudo sysctl net.ipv6.conf.all.disable_ipv6=1\n"
+
 	echo -e "${BWHITE}Kairos - ${NC}${BRED}Fast${NC} ${BYELLOW}Dev${NC} ${BGREEN}Environment${NC} ${BWHITE}Setup Script${NC}\n"
 
-	which snap >/dev/null 2>&1
+	which yq >/dev/null 2>&1
 	if [ $? -eq 1 ]; then
-		question="To continue we will need to install the Snap Package Manager. Is this ok?"
-		choices=(*yes no)
-		response=$(prompt "$question" $choices)
-		if [ "$response" == "y" ];then
-			success="Snapd installed successfully, now continuing..."
-			failure="Snapd failed to install. Cancelling install."
-			echo "Apt-get updating, please wait..."
-			sudo apt-get $apt_quiet update
-			running "If snapd hangs with 'Waiting for server to restart' you can run the following in another tab."
-			echo "sudo systemctl restart snapd snapd.socket\n"
-			echo "Installing snapd, please wait..."
-			sudo apt-get $apt_quiet -y install snapd
-			canary $? "$success" "$failure"
-			if [ $? -eq 0 ]; then
-				snap install yq
-			else
-				exit 0
-			fi
-		else
-			echo "User cancelled installed."
-			exit 0
-		fi
+		echo "Installing yq for yaml parsing..."
+		wget -qO yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+		chmod +x ./yq
+		sudo cp ./yq /usr/bin/yq
+	fi
+	# which snap >/dev/null 2>&1
+	# if [ $? -eq 1 ]; then
+	# 	question="To continue we will need to install the Snap Package Manager. Is this ok?"
+	# 	choices=(*yes no)
+	# 	response=$(prompt "$question" $choices)
+	# 	if [ "$response" == "y" ];then
+	# 		success="Snapd installed successfully, now continuing..."
+	# 		failure="Snapd failed to install. Cancelling install."
+	# 		echo "Apt-get updating, please wait..."
+	# 		sudo apt-get $apt_quiet update
+	# 		# running "If snapd hangs with 'Waiting for server to restart' you can run the following in another tab."
+	# 		# echo -e "sudo systemctl restart snapd snapd.socket\n"
+	# 		echo "Installing snapd, please wait..."
+	# 		sudo apt-get $apt_quiet -y install snapd
+	# 		canary $? "$success" "$failure"
+	# 		if [ $? -eq 0 ]; then
+	# 			echo "Grab a snickers - this might take awhile, installing snapd update & then yq."
+	# 			sudo snap install snapd
+	# 			sudo snap install yq
+	# 			if [ $? -ne 0 ]; then
+	# 				ranfailure "yq for parsing yaml configs failed to install. Please re-run this installer and try again."
+	# 				exit 0
+	# 			fi
+	# 		else
+	# 			exit 0
+	# 		fi
+	# 	else
+	# 		echo "User cancelled installed."
+	# 		exit 0
+	# 	fi
 		
 		# question='Add ppa:rmescandon/yq for parsing yaml configs?'
 		# choices=(*yes no cancel all)
@@ -74,14 +93,14 @@ main() {
 		# else
 		# 	exit 0
 		# fi
-	else
-		# yq --version
-		# yq version 4.6.1
-		which yq >/dev/null 2>&1
-		if [ $? -eq 1 ]; then
-			snap install yq
-		fi
-	fi
+	# else
+	# 	# yq --version
+	# 	# yq version 4.6.1
+	# 	which yq >/dev/null 2>&1
+	# 	if [ $? -eq 1 ]; then
+	# 		snap install yq
+	# 	fi
+	# fi
 
 	# Cleans up yaml file
 	# eval $(yq eval '.. | select((tag == "!!map" or tag == "!!seq") | not) | (path | join("_")) + "=" + .' ./configs/ubuntu.yaml \
@@ -119,10 +138,10 @@ main() {
 
 	if [ -n "${Install_Prescript}" ]; then
 		echo ""
-		sudo apt-get update
-		if [ echo $? ]; then
-			updateRan=true;
-		fi
+		sudo DEBIAN_FRONTEND=noninteractive apt-get update < /dev/null > /dev/null
+		# if [ echo $? ]; then
+		# 	updateRan=true;
+		# fi
 		echo "${ULINEYELLOW}Phase 1/3 Pre-Install [ Pre-setup scripts: ${Install_Prescript[@]} ]${NC}"
 		for i in "${Install_Prescript[@]}";do
 			if [ -f "./prescript/$i.sh" ]; then
@@ -156,12 +175,11 @@ main() {
 			done
 			echo ""
 			echo "${BYELLOW}Installing all packages...${NC}"
-			if [ -z updateRan ]; then
-				sudo apt-get update
-			fi
+			# Do not remove - repo updates may need this update to be ran again
+			sudo DEBIAN_FRONTEND=noninteractive apt-get update < /dev/null > /dev/null
 			count=1
 			for i in "${Install_Packages[@]}";do
-				sudo apt-get $apt_quiet -y install $i
+				sudo DEBIAN_FRONTEND=noninteractive apt-get $apt_quiet -y install $i < /dev/null > /dev/null
 				if [[ $(echo $?) -eq 1 ]]; then
 					ranfailure "**Failed to install $i.**"
 				# else

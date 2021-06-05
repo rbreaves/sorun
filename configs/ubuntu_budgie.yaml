@@ -8,6 +8,7 @@ Install:
   Packages:
     - xfce4-terminal
     - gnome-tweaks
+    - xdotool
     - git
     - zsh
     - locate
@@ -20,6 +21,7 @@ Install:
     - htop
     - tmux
     - remmina
+    - xfreerdp
     - font-manager
     - budgie-hotcorners-applet
     - budgie-workspace-overview-applet

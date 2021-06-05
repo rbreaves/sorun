@@ -64,7 +64,7 @@ main() {
 	running "Now installing openssh-server & client..."
 	success="Success! OpenSSH Server & Client is installed."
 	failure="Failure! OpenSSH Server & Client did not install."
-	sudo apt-get install $apt_quiet -y openssh-server openssh-client
+	sudo apt-get install $apt_quiet -y openssh-server openssh-client >/dev/null 2>&1
 	canary $? "$success" "$failure"
 	dead_canary=$((($(echo $?)==1) ? 1 : $dead_canary ))
 

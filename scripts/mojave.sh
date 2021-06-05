@@ -10,7 +10,7 @@ main () {
 	if [ "$distro" == "debian" ]  || [ "$distro" == "ubuntu" ]  || [ "$distro" == "pop!_os" ];then
 		mojaveQuery=`dpkg-query -l | grep "mojave\|fonts\-roboto" | wc -l`
 		if [ $mojaveQuery -lt 4 ]; then
-			sudo add-apt-repository --yes ppa:ubuntubudgie/backports
+			sudo timeout 60 sudo add-apt-repository --yes ppa:ubuntubudgie/backports
 			sudo apt-get update
 			sudo apt-get $apt_quiet -y install mojave-gtk-theme mcmojave-circle fonts-roboto
 		else
@@ -47,6 +47,7 @@ main () {
 
 		gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ icon-size "72"
 		gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ zoom-enabled "false"
+		gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ theme 'Transparent'
 		gsettings set io.elementary.desktop.wingpanel.applications-menu enable-powerstrip "true"
 	fi
 

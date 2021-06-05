@@ -4,8 +4,10 @@ main () {
 
 	dead_canary=0
 
-	mkdir -p ~/Documents/git-projects
-	cd ~/Documents/git-projects
+	pkill -f xfce4-panel >/dev/null 2>&1
+	pkill -f nm-applet >/dev/null 2>&1
+
+	# xfconf-query -c xfce4-panel -lv > ./xfce4-panel.backup
 	if [ "$dename" == "gnome" ];then
 		if ! [ -d ~/Documents/git-projects/gnome-shell-extension-installer ];then
 			echo -e "Cloning gnome-shell-extension-installer..."
@@ -20,13 +22,13 @@ main () {
 
 	width=$(xdpyinfo | awk '/dimensions/{sub(/x.*/,""); print $2}')
 	mkdir -p $HOME/Pictures/wallpapers
-	sudo cp -a ./assets/wallpapers/. $HOME/Pictures/wallpapers/
-	# Credit Any Holmes
+	cp -a ./assets/wallpapers/. $HOME/Pictures/wallpapers/
+	# Credit Andy Holmes
 	# Unsplash license for reuse
 	# https://unsplash.com/photos/rCbdp8VCYhQ
 
 	# gsettings set org.gnome.desktop.background picture-uri 'file:///usr/share/backgrounds/pop/kate-hazen-pop-m3lvin.png'
-	gsettings set org.gnome.desktop.background picture-uri 'file://$HOME/Pictures/wallpapers/sorunme-1920x1200.jpg'
+	gsettings set org.gnome.desktop.background picture-uri "file://$HOME/Pictures/wallpapers/sorunme-1920x1200.jpg"
 
 	# Just Perfection
 	gnome-shell-extension-installer 3843
@@ -42,8 +44,22 @@ main () {
 	gsettings --schemadir ~/.local/share/gnome-shell/extensions/just-perfection-desktop@just-perfection/schemas/ set org.gnome.shell.extensions.just-perfection panel false
 	gsettings --schemadir ~/.local/share/gnome-shell/extensions/just-perfection-desktop@just-perfection/schemas/ set org.gnome.shell.extensions.just-perfection dash false
 
-	sudo apt install xfce4-notifyd xfce4-whiskermenu-plugin xfce4-power-manager xfce4-appmenu-plugin vala-panel-appmenu-common appmenu-gtk2-module appmenu-gtk3-module appmenu-gtk-module-common
+	sudo apt install $apt_quite -y xfce4-notifyd xfce4-whiskermenu-plugin xfce4-power-manager xfce4-appmenu-plugin vala-panel-appmenu-common appmenu-gtk2-module appmenu-gtk3-module appmenu-gtk-module-common
 	xfconf-query -c xsettings -p /Gtk/Modules -n -t string -s "appmenu-gtk-module"
+
+	# Remove panel 2 - arrays start at 0, hence 2 = 1
+	xfconf-query -c xfce4-panel -p /panels -t int -s 1 -a
+	xfconf-query -c xfce4-panel -p /panels/panel-2 -rR
+	# Remove applications menu
+	xfconf-query -c xfce4-panel -p /panels/panel-1/plugins/plugin-1 -rR
+	# Remove all plugins really
+	xfconf-query -c xfce4-panel -p /panels/panel-1/plugins -rR
+
+	# Import the good xfce4 settings
+	while read line
+	do
+		xfconf-query -c xfce4-panel -p "$(echo $line | awk '{print $1}')" -s "$(echo $line | awk '{print $2}')" -n
+	done < ./assets/xfce4/xfce4-panel.config
 
 	gnome-extensions disable ubuntu-appindicators@ubuntu.com
 
@@ -56,7 +72,7 @@ main () {
 	sudo cp ./assets/icons/48x48/sorunme.png /usr/share/icons/hicolor/48x48/apps/sorunme.png
 	sudo cp ./assets/icons/64x64/sorunme.png /usr/share/icons/hicolor/64x64/apps/sorunme.png
 	sudo cp ./assets/icons/scalable/sorunme.svg /usr/share/icons/hicolor/scalable/apps/sorunme.svg
-	sudo cp ./assets/icons/scalable/sorunme.svg /usr/share/icons/McMojave-circle/apps/scalable/sorunme.png
+	sudo cp ./assets/icons/scalable/sorunme.svg /usr/share/icons/McMojave-circle/apps/scalable/sorunme.svg
 
 	cp ./assets/Pop_OS/gtk.css ~/.config/gtk-3.0/gtk.css
 	mkdir -p ~/.icons
@@ -71,11 +87,35 @@ main () {
 
 	echo -e "Please be patient. Do not freakout, GnomeShell will come back normally...\nRestarting now to apply gnome extensions."
 	dbus-send --type=method_call --print-reply --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'
-	
+
+	echo "Starting xfce4-panel..."
 	nohup xfce4-panel&
-	sleep 2
+	sleep 10
 	xdotool search --name "Whisker Menu" set_window --name " "
 	nm-applet --indicator&
+	echo "Killing xfce4-panel..."
+	pkill -f xfce4-panel >/dev/null 2>&1
+	echo "Re-copying the proper config in place for xfce4-panel..."
+	cp -a ./assets/xfce4/. ~/.config/xfce4/
+	sleep 1
+	# Remove panel 2 - arrays start at 0, hence 2 = 1
+	xfconf-query -c xfce4-panel -p /panels -t int -s 1 -a
+	xfconf-query -c xfce4-panel -p /panels/panel-2 -rR
+	# Remove applications menu
+	xfconf-query -c xfce4-panel -p /panels/panel-1/plugins/plugin-1 -rR
+	# Remove all plugins really
+	xfconf-query -c xfce4-panel -p /panels/panel-1/plugins -rR
+	sleep 2
+	echo "Restarting xfce4-panel..."
+	nohup xfce4-panel&
+	nohup plank&
+	echo -e "You may need to log off and back on before seeing the global menu...\n"
+	question='Cmd-Space - type logout or say hit Enter to logout now.'
+	choices=(*yes no)
+	response=$(prompt "$question" $choices)
+	if [ "$response" == "y" ];then
+		gnome-session-quit
+	fi
 
 }
 

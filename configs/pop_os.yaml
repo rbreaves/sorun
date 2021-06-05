@@ -9,6 +9,7 @@ Install:
   Packages:
     - xfce4-terminal
     - xfce4-panel
+    - xdotool
     - locate
     - gnome-tweaks
     - gnome-shell-extensions
@@ -20,12 +21,13 @@ Install:
     - gir1.2-gtksource-4                # nemo-preview dependency
     - nemo-preview
     - sublime-text
-    - code
-    - ncdu
-    - htop
-    - tmux
-    - remmina
-    - font-manager
+    # - code
+    # - ncdu
+    # - htop
+    # - tmux
+    # - remmina
+    # - xfreerdp
+    # - font-manager
     - plank
     # - virtualbox
     # - virtualbox-ext-pack
@@ -35,11 +37,12 @@ Install:
     - kinto
     - homerc-files
     - git-projects
-    - touchpad-gnome-reverse
+    # - touchpad-gnome-reverse
     - terminal-zsh-defaults
     # # - homebrew
     - autojump                  # Configures bash & zsh to source it
     - git-config
+    - pop_os-defaults
     # - libinput-gestures
     # - hidpi-laptop-budgie
   # Done: echo "Congrats";

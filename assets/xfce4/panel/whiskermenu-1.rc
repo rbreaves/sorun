@@ -1,7 +1,7 @@
 favorites=
 recent=nemo.desktop,org.gnome.Nautilus.desktop
 button-title=
-button-icon=/usr/share/icons/hicolor/scalable/apps/scalable_kairos.svg
+button-icon=/usr/share/icons/hicolor/scalable/apps/sorunme.svg
 button-single-row=false
 show-button-title=false
 show-button-icon=true
