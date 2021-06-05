@@ -175,17 +175,19 @@ main() {
 			done
 			echo ""
 			echo "${BYELLOW}Installing all packages...${NC}"
+			echo "Package manager is updating..."
 			# Do not remove - repo updates may need this update to be ran again
 			sudo DEBIAN_FRONTEND=noninteractive apt-get update < /dev/null > /dev/null
 			count=1
 			for i in "${Install_Packages[@]}";do
+				echo "[$count/${#Install_Packages[@]}] installing $i..."
 				sudo DEBIAN_FRONTEND=noninteractive apt-get $apt_quiet -y install $i < /dev/null > /dev/null
 				if [[ $(echo $?) -eq 1 ]]; then
 					ranfailure "**Failed to install $i.**"
 				# else
 				# 	echo "${BGREEN}*Finished $i.*${NC}"
 				else
-					ransuccess "[$count/${#Install_Packages[@]}] $i install succeeded."
+					ransuccess "$i install succeeded."
 				fi
 				count=$((count+1))
 			done
@@ -213,6 +215,13 @@ main() {
 		echo -e "${ULINEYELLOW}Phase 3/3 Remove packages [ Skipping. Nothing configured. ]${NC}\n"
 	fi
 
+	echo "Re-enabling IPv6.."
+	sudo sysctl net.ipv6.conf.all.disable_ipv6=0
+	if [ $? -eq 0 ]; then
+		echo "Re-enabled"
+	else
+		echo "Failed to re-enable IPv6"
+	fi
 	echo -e "\nIf your terminal looks weird, aka broken fonts, theme, etc, you may need to close it and re-open it or even log off and back on for the zsh default shell to take effect."
 
 }

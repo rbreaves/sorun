@@ -37,6 +37,7 @@ Install:
   Postscript:
     - printer-fix
     - mojave
+    - terminal-zsh-defaults
     - ubuntu-budgie-defaults
     - kinto
     - homerc-files
@@ -44,7 +45,6 @@ Install:
     - touchpad-gnome-reverse
     - battery-gnome-percentage
     - time-12hr-gnome
-    - terminal-zsh-defaults
     # - homebrew
     - autojump                  # Configures bash & zsh to source it
     - git-config

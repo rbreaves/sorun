@@ -5,7 +5,7 @@ if ! command -v code &> /dev/null; then
 	sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
 	sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
 	rm -f packages.microsoft.gpg
-	sudo apt-get $apt_quiet  -y install apt-transport-https
+	sudo DEBIAN_FRONTEND=noninteractive apt-get $apt_quiet -y install apt-transport-https < /dev/null > /dev/null
 else
 	echo "Detected VS Code as being installed. Skipping repo addition."
 fi

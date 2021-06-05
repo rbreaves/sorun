@@ -22,20 +22,24 @@ main () {
 	# End backup
 
 	# Check each sudo line and add if needed
-	cat ./assets/.vimrc | while read line || [[ -n $line ]];
-	do
-		grep -qF -- "$line" "$file" || echo "$line" >> "$file"
-	done
+	if [ -f ~/.vimrc ];then
+		cat ./assets/.vimrc | while read line || [[ -n $line ]];
+		do
+			grep -qF -- "$line" "$file" || echo "$line" >> "$file"
+		done
+	else
+		cp ./assets/.vimrc ~/.vimrc
+	fi
 
 	question="Would you like to copy a basic .vimrc file from $HOME to /root/.vimrc to resolve arrow key & insert issues?"
 	choices=(*yes no)
 	response=$(prompt "$question" $choices)
 	if [ "$response" == "y" ];then
 		sudo mkdir -p /root/backups
-		sudo cp /root/.vimrc /root/backups/.vimrc.`date "+%y-%m-%d_%H%M%S"`.bak
+		sudo cp /root/.vimrc /root/backups/.vimrc.`date "+%y-%m-%d_%H%M%S"`.bak >/dev/null 2>&1
 		success=".vimrc copied to root successfully."
 		failure=".vimrc failed to copy to root."
-		sudo cp $HOME/.vimrc /root/.vimrc
+		sudo cp $HOME/.vimrc /root/.vimrc >/dev/null 2>&1
 		canary $? "$success" "$failure"
 		dead_canary=$((($(echo $?)==1) ? 1 : $dead_canary ))
 	fi
