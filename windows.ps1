@@ -1,5 +1,5 @@
 ''
-'Kairos - Fast Dev Setup'
+'Sorun.me - Fast Dev Setup'
 ''
 
 $param1=$args[0]
@@ -10,7 +10,7 @@ if($param1 -eq '-a'){
     'All programs and options will be installed.'
     'Kinto remapper will be installed.'
     'Virtualbox w/ extension pack will be installed.'
-    'Git projects Kinto & Kairos will be added to ~\Documents\git-projects.'
+    'Git projects Kinto & Sorun.me will be added to ~\Documents\git-projects.'
     'These programs will be installed.'
     'git sublimetext3 vscode googlechrome firefox opera microsoft-windows-terminal'
     $NoPrompts = 1
@@ -98,7 +98,7 @@ else{
         $InstallEditors = Read-Host -Prompt 'Do you want to install SublimeText3 and VSCode? [S/V/[A]ll]'
     } until ($InstallEditors -eq 's' -OR $InstallEditors -eq 'v' -OR $InstallEditors -eq 'a')
     do {
-        $InstallVSExt = Read-Host -Prompt 'Do you want to install VSCode Extensions & set Kairos defaults? [Y/N]'
+        $InstallVSExt = Read-Host -Prompt 'Do you want to install VSCode Extensions & set Sorun.me defaults? [Y/N]'
     } until ($InstallVSExt -eq 'y' -OR $InstallVSExt -eq 'n')
     # WSL
     do {

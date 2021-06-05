@@ -11,10 +11,10 @@ main () {
 	else
 		echo "Kinto repo already exists."
 	fi
-	if ! [ -d ~/Documents/git-projects/kairos ];then
-		git clone https://github.com/rbreaves/kairos.git
+	if ! [ -d ~/Documents/git-projects/sorun ];then
+		git clone https://github.com/rbreaves/sorun.git
 	else
-		echo -e "Kairos repo already exists."
+		echo -e "Sorun.me repo already exists."
 	fi
 
 }
