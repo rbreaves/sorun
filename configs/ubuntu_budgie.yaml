@@ -4,7 +4,7 @@ DE: budgie
 # de-version:
 Install:
   Prescript:
-    - openssh-config
+    # - openssh-config
   Packages:
     - xfce4-terminal
     - gnome-tweaks
@@ -37,10 +37,8 @@ Install:
   Postscript:
     - printer-fix
     - mojave
-    - terminal-zsh-defaults
     - ubuntu-budgie-defaults
     - kinto
-    - homerc-files
     - git-projects
     - touchpad-gnome-reverse
     - battery-gnome-percentage
@@ -48,6 +46,8 @@ Install:
     # - homebrew
     - autojump                  # Configures bash & zsh to source it
     - git-config
+    - homerc-files
+    - terminal-zsh-defaults
     # - libinput-gestures
     # - hidpi-laptop-budgie
   # Done: echo "Congrats";

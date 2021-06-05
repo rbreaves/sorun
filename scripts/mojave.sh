@@ -11,8 +11,8 @@ main () {
 		mojaveQuery=`dpkg-query -l | grep "mojave\|fonts\-roboto" | wc -l`
 		if [ $mojaveQuery -lt 4 ]; then
 			sudo timeout 60 sudo add-apt-repository --yes ppa:ubuntubudgie/backports
-			sudo apt-get update
-			sudo apt-get $apt_quiet -y install mojave-gtk-theme mcmojave-circle fonts-roboto
+			sudo DEBIAN_FRONTEND=noninteractive apt-get update < /dev/null > /dev/null
+			sudo DEBIAN_FRONTEND=noninteractive apt-get $apt_quiet -y install mojave-gtk-theme mcmojave-circle fonts-roboto < /dev/null > /dev/null
 		else
 			echo "Already installed mojave ppa:ubuntubudgie/backports. Skipping."
 		fi
@@ -63,7 +63,31 @@ main () {
 		# gsettings set com.solus-project.budgie-panel.panel size 39
 		# gsettings set com.solus-project.budgie-panel.panel transparency "None"
 	fi
-	
+
+	sudo mv /usr/share/icons/McMojave-circle/apps/scalable/file-manager.svg /usr/share/icons/McMojave-circle/apps/scalable/file-manager.svg.bak
+	sudo mv /usr/share/icons/McMojave-circle/apps/scalable/filerunner.svg /usr/share/icons/McMojave-circle/apps/scalable/filerunner.svg.bak
+	sudo mv /usr/share/icons/McMojave-circle/apps/scalable/file-system-manager.svg /usr/share/icons/McMojave-circle/apps/scalable/file-system-manager.svg.bak
+	sudo mv /usr/share/icons/McMojave-circle/apps/scalable/fma-config-tool.svg /usr/share/icons/McMojave-circle/apps/scalable/fma-config-tool.svg.bak
+	sudo mv /usr/share/icons/McMojave-circle/apps/scalable/redhat-filemanager.svg /usr/share/icons/McMojave-circle/apps/scalable/redhat-filemanager.svg.bak
+	sudo mv /usr/share/icons/McMojave-circle/apps/scalable/spacefm.svg /usr/share/icons/McMojave-circle/apps/scalable/spacefm.svg.bak
+	sudo mv /usr/share/icons/McMojave-circle/apps/scalable/thunar-filemanager.svg /usr/share/icons/McMojave-circle/apps/scalable/thunar-filemanager.svg.bak
+	sudo mv /usr/share/icons/McMojave-circle/apps/scalable/thunar.svg /usr/share/icons/McMojave-circle/apps/scalable/thunar.svg.bak
+	sudo mv /usr/share/icons/McMojave-circle/apps/scalable/Thunar.svg /usr/share/icons/McMojave-circle/apps/scalable/Thunar.svg.bak
+	sudo mv /usr/share/icons/McMojave-circle/apps/scalable/WorkerIcon48.svg /usr/share/icons/McMojave-circle/apps/scalable/WorkerIcon48.svg.bak
+	sudo mv /usr/share/icons/McMojave-circle/apps/scalable/xfce-filemanager.svg /usr/share/icons/McMojave-circle/apps/scalable/xfce-filemanager.svg.bak
+	sudo mv /usr/share/icons/McMojave-circle/apps/scalable/caja-actions.svg /usr/share/icons/McMojave-circle/apps/scalable/caja-actions.svg.bak
+	sudo ln -s /usr/share/icons/McMojave-circle/places/scalable/blue-user-home.svg /usr/share/icons/McMojave-circle/apps/scalable/file-manager.svg
+	sudo ln -s /usr/share/icons/McMojave-circle/places/scalable/blue-user-home.svg /usr/share/icons/McMojave-circle/apps/scalable/filerunner.svg
+	sudo ln -s /usr/share/icons/McMojave-circle/places/scalable/blue-user-home.svg /usr/share/icons/McMojave-circle/apps/scalable/file-system-manager.svg
+	sudo ln -s /usr/share/icons/McMojave-circle/places/scalable/blue-user-home.svg /usr/share/icons/McMojave-circle/apps/scalable/fma-config-tool.svg
+	sudo ln -s /usr/share/icons/McMojave-circle/places/scalable/blue-user-home.svg /usr/share/icons/McMojave-circle/apps/scalable/redhat-filemanager.svg
+	sudo ln -s /usr/share/icons/McMojave-circle/places/scalable/blue-user-home.svg /usr/share/icons/McMojave-circle/apps/scalable/spacefm.svg
+	sudo ln -s /usr/share/icons/McMojave-circle/places/scalable/blue-user-home.svg /usr/share/icons/McMojave-circle/apps/scalable/thunar-filemanager.svg
+	sudo ln -s /usr/share/icons/McMojave-circle/places/scalable/blue-user-home.svg /usr/share/icons/McMojave-circle/apps/scalable/thunar.svg
+	sudo ln -s /usr/share/icons/McMojave-circle/places/scalable/blue-user-home.svg /usr/share/icons/McMojave-circle/apps/scalable/Thunar.svg
+	sudo ln -s /usr/share/icons/McMojave-circle/places/scalable/blue-user-home.svg /usr/share/icons/McMojave-circle/apps/scalable/WorkerIcon48.svg
+	sudo ln -s /usr/share/icons/McMojave-circle/places/scalable/blue-user-home.svg /usr/share/icons/McMojave-circle/apps/scalable/xfce-filemanager.svg
+	sudo ln -s /usr/share/icons/McMojave-circle/places/scalable/blue-user-home.svg /usr/share/icons/McMojave-circle/apps/scalable/caja-actions.svg
 }
 
 source ./functions/colors.sh

@@ -40,6 +40,15 @@ main () {
 	# Workspace Grid
 	gnome-shell-extension-installer 1485
 
+	# Pop!_OS 21.04 glitch requires this twice?
+	release=$(lsb_release -sr)
+	if [ "$release" == "21.04" ];then
+		# Just Perfection
+		gnome-shell-extension-installer 3843
+		# Workspace Grid
+		gnome-shell-extension-installer 1485
+	fi
+
 	
 	# Set horizontal workspaces
 	gsettings --schemadir ~/.local/share/gnome-shell/extensions/wsmatrix@martin.zurowietz.de/schemas/ set org.gnome.shell.extensions.wsmatrix-settings num-columns 2
@@ -49,17 +58,18 @@ main () {
 	gsettings --schemadir ~/.local/share/gnome-shell/extensions/just-perfection-desktop@just-perfection/schemas/ set org.gnome.shell.extensions.just-perfection panel false
 	gsettings --schemadir ~/.local/share/gnome-shell/extensions/just-perfection-desktop@just-perfection/schemas/ set org.gnome.shell.extensions.just-perfection dash false
 
-	release=$(lsb_release -sr)
+	
 	if [ "$release" == "21.04" ];then
 		prior_extensions=$(gsettings get org.gnome.shell enabled-extensions)
 		echo "Prior extensions enabled: $prior_extensions"
 		echo -e "\n Will be setting back to defaults plus Just Perfection and wsmatrix."
-		gsettings set org.gnome.shell enabled-extensions ['ding@rastersoft.com', 'multi-monitors-add-on@spin83', 'pop-cosmic@system76.com', 'pop-shell@system76.com', 'system76-power@system76.com', 'ubuntu-dock@ubuntu.com', 'just-perfection-desktop@just-perfection', 'wsmatrix@martin.zurowietz.de']
+		gsettings set org.gnome.shell enabled-extensions "['ding@rastersoft.com', 'multi-monitors-add-on@spin83', 'pop-cosmic@system76.com', 'pop-shell@system76.com', 'system76-power@system76.com', 'ubuntu-dock@ubuntu.com', 'just-perfection-desktop@just-perfection', 'wsmatrix@martin.zurowietz.de']"
+		gsettings set org.gnome.shell disabled-extensions "['ubuntu-appindicators@ubuntu.com', 'ubuntu-dock@ubuntu.com']"
+	else
+		gnome-extensions disable ubuntu-appindicators@ubuntu.com
 	fi
 
 	sudo DEBIAN_FRONTEND=noninteractive apt-get install $apt_quite -y gir1.2-appindicator3-0.1 xfce4-statusnotifier-plugin xfce4-notifyd xfce4-whiskermenu-plugin xfce4-power-manager xfce4-appmenu-plugin vala-panel-appmenu-common appmenu-gtk2-module appmenu-gtk3-module appmenu-gtk-module-common < /dev/null > /dev/null
-
-	gnome-extensions disable ubuntu-appindicators@ubuntu.com
 
 	sudo cp ./assets/icons/128x128/sorunme.png /usr/share/icons/hicolor/128x128/apps/sorunme.png
 	sudo cp ./assets/icons/16x16/sorunme.png /usr/share/icons/hicolor/16x16/apps/sorunme.png

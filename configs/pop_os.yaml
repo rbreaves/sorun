@@ -4,7 +4,7 @@ DE: gnome
 # de-version:
 Install:
   Prescript:
-    - openssh-config
+    # - openssh-config
   # ncdu htop
   Packages:
     - xfce4-terminal
@@ -34,15 +34,15 @@ Install:
   Snaps:
   Postscript:
     - mojave
-    - terminal-zsh-defaults
     - pop_os-defaults
     - kinto
     - git-projects
     - touchpad-gnome-reverse
-    # # - homebrew
+    # - homebrew
     - autojump                  # Configures bash & zsh to source it
     - git-config
     - homerc-files
+    - terminal-zsh-defaults
     # - libinput-gestures
     # - hidpi-laptop-budgie
   # Done: echo "Congrats";

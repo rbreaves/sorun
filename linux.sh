@@ -155,6 +155,8 @@ main() {
 				fi
 			fi
 		done
+	else
+		echo -e "${ULINEYELLOW}Phase 1/3 Pre-Install [ Skipping. Nothing configured. ]${NC}"
 	fi
 
 	echo ""

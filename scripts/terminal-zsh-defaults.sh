@@ -15,7 +15,7 @@ main () {
 	mkdir -p ~/.config/xfce4/terminal
 
 	if ! [ -d "$HOME/.oh-my-zsh" ];then
-		echo -e "\n${BRED}*** After installing oh-my-zsh type in 'exit' to continue ***${NC}\n"
+		echo -e "\n${BYELLOW}*** After installing oh-my-zsh type in 'exit' to continue ***${NC}\n"
 		echo "Install oh-my-zsh..."
 		sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 		echo "Note: **May need to logoff and back on to see zsh as the default shell.**"
