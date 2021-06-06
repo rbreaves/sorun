@@ -1,6 +1,8 @@
 # Sorun.me
 Desktop Linux for Creators
 
+[![GitHub release](https://img.shields.io/github/release/rbreaves/sorun.svg)](https://github.com/rbreaves/sorun/releases/latest)
+
 <img src="https://user-images.githubusercontent.com/10969616/120910252-ff66cb00-c642-11eb-8e8a-7ed56eefc919.png" width="80%" height="80%">
 
 A consistent desktop experience for developers and creators, regardless of the distro or DE.
