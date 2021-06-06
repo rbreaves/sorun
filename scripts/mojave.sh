@@ -51,19 +51,6 @@ main () {
 		gsettings set io.elementary.desktop.wingpanel.applications-menu enable-powerstrip "true"
 	fi
 
-	# Ubuntu Budgie specific
-	if [ "$distro" == "ubuntu" ]  && [ "$dename" == "budgie" ];then
-		gsettings set org.gnome.desktop.background color-shading-type "solid"
-		gsettings set org.gnome.desktop.background picture-options "stretched"
-		gsettings set org.gnome.desktop.background picture-uri "file:////usr/share/backgrounds/budgie/mountain-lake_by_william_beckwith.jpg"
-		gsettings set org.gnome.desktop.background primary-color "#008094"
-
-		# gsettings set com.solus-project.budgie-panel.instance.appmenu.*.bold-application-name true
-		# gsettings set com.solus-project.budgie-panel.panel enable-shadow true
-		# gsettings set com.solus-project.budgie-panel.panel size 39
-		# gsettings set com.solus-project.budgie-panel.panel transparency "None"
-	fi
-
 	sudo mv /usr/share/icons/McMojave-circle/apps/scalable/file-manager.svg /usr/share/icons/McMojave-circle/apps/scalable/file-manager.svg.bak
 	sudo mv /usr/share/icons/McMojave-circle/apps/scalable/filerunner.svg /usr/share/icons/McMojave-circle/apps/scalable/filerunner.svg.bak
 	sudo mv /usr/share/icons/McMojave-circle/apps/scalable/file-system-manager.svg /usr/share/icons/McMojave-circle/apps/scalable/file-system-manager.svg.bak
