@@ -7,6 +7,10 @@ This is why Sorun.me exists - it is designed for one purpose, aligning the numer
 
 ## Install (Ubuntu Budgie 20.04 & Pop\!_OS 20.04 Only)
 
+Sorun.me v0.9
+
+Note: The current v0.9 release does not have a proper uninstaller. Please test this on a fresh install or VM only.
+
 ```
 bash <( curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/rbreaves/sorun/HEAD/linux.sh )
 ```
