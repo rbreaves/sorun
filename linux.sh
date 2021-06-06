@@ -11,9 +11,9 @@ if [ "$1" == "--dev" ];then
 		# echo "Please run this script from the proper root directory."
 		# exit 1
 		echo "Running indirectly, will download the latest and initiate the script from there."
-		curl -L -o ~/kairos-dev.tar.gz https://github.com/rbreaves/kairos/archive/refs/heads/dev.tar.gz
-		tar -xvzf ~/kairos-dev.tar.gz
-		cd ~/kairos-dev
+		curl -L -o ~/sorun-dev.tar.gz https://github.com/rbreaves/sorun/archive/refs/heads/dev.tar.gz
+		tar -xvzf ~/sorun-dev.tar.gz
+		cd ~/sorun-dev
 		./linux.sh
 		exit 1
 	fi
@@ -25,9 +25,9 @@ else
 		# echo "Please run this script from the proper root directory."
 		# exit 1
 		echo "Running indirectly, will download the latest and initiate the script from there."
-		curl -L -o ~/kairos-main.tar.gz https://github.com/rbreaves/kairos/archive/refs/heads/main.tar.gz
-		tar -xvzf ~/kairos-main.tar.gz
-		cd ~/kairos-main
+		curl -L -o ~/sorun-main.tar.gz https://github.com/rbreaves/sorun/archive/refs/heads/main.tar.gz
+		tar -xvzf ~/sorun-main.tar.gz
+		cd ~/sorun-main
 		./linux.sh
 		exit 1
 	fi
@@ -41,7 +41,7 @@ main() {
 	echo "Temporarily disabling IPv6 to avoid possible delays and hanging processes."
 	echo -e "sudo sysctl net.ipv6.conf.all.disable_ipv6=1\n"
 
-	echo -e "${BWHITE}Kairos - ${NC}${BRED}Fast${NC} ${BYELLOW}Dev${NC} ${BGREEN}Environment${NC} ${BWHITE}Setup Script${NC}\n"
+	echo -e "${BWHITE}Sorun.me - Desktop Linux for Creators${NC}\n"
 
 	which yq >/dev/null 2>&1
 	if [ $? -eq 1 ]; then
