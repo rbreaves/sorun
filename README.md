@@ -1,6 +1,8 @@
 # Sorun.me
 Desktop Linux for Creators
 
+<img src="https://user-images.githubusercontent.com/10969616/120910252-ff66cb00-c642-11eb-8e8a-7ed56eefc919.png" width="80%" height="80%">
+
 A consistent desktop experience for developers and creators, regardless of the distro or DE.
 
 ## Install (Ubuntu Budgie 20.04 & Pop\!_OS 20.04 Only)
