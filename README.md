@@ -43,7 +43,6 @@ DE: gnome
 Install:
   Prescript:
     # - openssh-config
-  # ncdu htop
   Packages:
     - xfce4-terminal
     - xfce4-panel
