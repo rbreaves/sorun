@@ -21,7 +21,7 @@ Install:
     - htop
     - tmux
     - remmina
-    - xfreerdp
+    - freerdp2-x11
     - font-manager
     - budgie-hotcorners-applet
     - budgie-workspace-overview-applet
