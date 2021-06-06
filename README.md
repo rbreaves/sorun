@@ -33,6 +33,63 @@ cd ./sorun
 
 ```
 
+## How to add packages or scripts?
+
+Given the yaml nature of the config files anyone can quickly add their own preferences or changes to the script.
+https://github.com/rbreaves/sorun/tree/main/configs
+```
+Distro: pop!_os
+DE: gnome
+Install:
+  Prescript:
+    # - openssh-config
+  # ncdu htop
+  Packages:
+    - xfce4-terminal
+    - xfce4-panel
+    - xdotool
+    - locate
+    - gnome-tweaks
+    - gnome-shell-extensions
+    ...
+Postscript:
+    - mojave
+    - pop_os-defaults
+...
+```
+
+If you want to add a post package install script then you can follow the template file or openss-config.sh as interactive examples.
+https://github.com/rbreaves/sorun/blob/main/scripts/template.sh
+```
+#!/usr/bin/env bash
+
+main () {
+
+	dead_canary=0
+
+	question="Ask generic question?"
+	choices=(*yes no)
+	response=$(prompt "$question" $choices)
+	if [ "$response" == "y" ];then
+		echo ""
+	else
+		echo ""
+	fi
+
+	success="This ran successfully!"
+	failure="This failed! :/"
+	test
+	canary $? "$success" "$failure"
+	dead_canary=$((($(echo $?)==1) ? 1 : $dead_canary ))
+
+}
+
+source ./functions/colors.sh
+source ./functions/prompt.sh
+
+main "$@"
+```
+
 ## Roadmap
 
 So what's next? Well this will be an ongoing project where new apps and configurations will undoubtedly be added over time, so I am just going to list some near to midterm support items, mostly distros I would like to support in the future.
