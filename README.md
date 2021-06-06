@@ -1,4 +1,7 @@
 # Sorun.me
+
+<img src="https://user-images.githubusercontent.com/10969616/120915683-c3476080-c66a-11eb-99f5-c0e7c45b17b5.png" width="40%" height="40%">
+
 Desktop Linux for Creators
 
 [![GitHub release](https://img.shields.io/github/release/rbreaves/sorun.svg)](https://github.com/rbreaves/sorun/releases/latest)
