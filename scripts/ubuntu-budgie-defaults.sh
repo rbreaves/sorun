@@ -41,8 +41,8 @@ elif [ "$latestBackup" == "./backups/" ];then
 fi
 # End backup
 
-# if [ -d /tmp/kairos ] && [ -f /tmp/kairos/assets/25_budgie-desktop-environment.gschema.override ];then
-# 	sudo cp /tmp/kairos/assets/25_budgie-desktop-environment.gschema.override /usr/share/glib-2.0/schemas/25_budgie-desktop-environment.gschema.override
+# if [ -d /tmp/sorun ] && [ -f /tmp/sorun/assets/25_budgie-desktop-environment.gschema.override ];then
+# 	sudo cp /tmp/sorun/assets/25_budgie-desktop-environment.gschema.override /usr/share/glib-2.0/schemas/25_budgie-desktop-environment.gschema.override
 if [ -d ./assets/ ];then
 	sudo cp ./assets/25_budgie-desktop-environment.gschema.override /usr/share/glib-2.0/schemas/25_budgie-desktop-environment.gschema.override
 	sudo cp ./assets/org.valapanel.appmenu.gschema.xml /usr/share/glib-2.0/schemas/org.valapanel.appmenu.gschema.xml

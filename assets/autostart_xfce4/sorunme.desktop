@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Sorunme
+GenericName=Sorunme
+Comment=Desktop Linux for Creators
+Exec=/bin/bash -c "$HOME/.config/autostart/sorunme.sh"
+Terminal=false
+Type=Application
+Icon=sorunme
+X-GNOME-Autostart-enabled=true

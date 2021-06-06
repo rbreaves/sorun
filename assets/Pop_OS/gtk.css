@@ -1,0 +1,53 @@
+/* ~/.config/gtk-3.0/gtk.css 
+Fixes Mojave theme to have thicker titlebars
+Also uses original Pop!_OS font 
+Spaces the Min/max/close buttons */
+
+.xfce4-panel * {
+    font-family: Fira Sans SemiBold;
+}
+
+#sn-button {
+    padding: 0px 6px 0px 6px;
+
+}
+#indicator-button {
+    padding: 0px 6px 0px 6px;
+}
+
+.-vala-panel-appmenu-private * {
+    font-family: Fira Sans Book;
+}
+
+.-vala-panel-appmenu-private:nth-child(1) > * > GtkLabel {
+    font-style: bold;
+    font-size: 13px;
+    padding-right: 12px;
+    padding-left: 12px;
+}
+
+.-vala-panel-appmenu-private:nth-child(2) > * {
+   font-weight: 200;
+   padding-left: 12px;
+   padding-right: 12px;
+}
+
+headerbar {
+    padding: 5px;
+}
+
+/* helps in matching the UI design of newer GTK apps */
+window.ssd headerbar.titlebar {
+    min-height: 0px;
+    padding: 14px;
+    margin: 0px;
+}
+
+
+.titlebar{
+    font-family: Fira Sans SemiBold;
+}
+
+button.titlebutton{
+    padding: 0px 3px 0px 3px;
+}

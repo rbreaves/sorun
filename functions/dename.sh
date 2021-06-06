@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# DE types budgie|gnome|kde|kde|unity|xfce|cinnamon|mate|lxde|sugar|unknown
+
 function detect_budgie()
 {
 	ps -e | grep -E '^.* budgie-wm' > /dev/null
@@ -32,7 +34,7 @@ function detect_kde4()
 		return 0
 	else    
 		VERSION=`kded4 --version | grep -m 1 'KDE' | awk -F ':' '{print $2}' | awk '{print $1}'`
-		DESKTOP="KDE"
+		DESKTOP="kde"
 		return 1
 	fi
 }
@@ -45,7 +47,7 @@ function detect_kde()
 		return 0
 	else    
 		VERSION=`kded5 --version | grep -m 1 'KDE' | awk -F ':' '{print $2}' | awk '{print $1}'`
-		DESKTOP="KDE"
+		DESKTOP="kde"
 		return 1
 	fi
 }
@@ -177,6 +179,6 @@ else
 	then
 	echo $DESKTOP
 	else
-	echo $DESKTOP $VERSION
+	echo $DESKTOP, $VERSION
 	fi
 fi
