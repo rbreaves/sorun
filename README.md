@@ -7,6 +7,8 @@ Desktop Linux for Creators
 
 A consistent desktop experience for developers and creators, regardless of the distro or DE.
 
+If you are only interested in the key remapper aspect of Sorun.me then please checkout my other project [kinto.sh](https://github.com/rbreaves/kinto). Sorun.me brings onboard several applications geared towards developers and creators and largely based on my own preferences, but it can be expanded to support more applications, configurations and distros.
+
 ## Install (Ubuntu Budgie 20.04 & Pop\!_OS 20.04 Only)
 
 Sorun.me v0.9
