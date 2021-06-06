@@ -5,6 +5,8 @@ main () {
 	mkdir -p "$HOME/budgie-schemas/"
 
 	sudo cp -a ./assets/wallpapers/. /usr/share/backgrounds/budgie/
+	mkdir -p $HOME/Pictures/wallpapers
+	cp -a ./assets/wallpapers/. $HOME/Pictures/wallpapers/
 
 	# Ubuntu Budgie specific
 	if [ "$distro" == "ubuntu" ]  && [ "$dename" == "budgie" ];then
