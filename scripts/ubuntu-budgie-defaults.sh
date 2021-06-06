@@ -2,6 +2,8 @@
 
 mkdir -p "$HOME/budgie-schemas/"
 
+sudo cp -a ./assets/wallpapers/. /usr/share/backgrounds/budgie/
+
 # Backup file if needed
 latestBackup="./backups/`ls -A1 ./backups | grep "^25_budgie-desktop-environment" | tail -n1`"
 if [ "$latestBackup" != "./backups/" ];then
