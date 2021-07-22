@@ -10,7 +10,8 @@ Install:
     - gnome-tweaks
     - xdotool
     - git
-    - zsh
+    - vim
+    - zshw
     - locate
     - autojump
     - gir1.2-gtksource-4                # nemo-preview dependency

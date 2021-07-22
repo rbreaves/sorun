@@ -9,6 +9,7 @@ Install:
     - xfce4-terminal
     - xfce4-panel
     - xdotool
+    - vim
     - locate
     - gnome-tweaks
     - gnome-shell-extensions
