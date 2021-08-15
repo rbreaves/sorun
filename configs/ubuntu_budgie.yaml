@@ -11,7 +11,7 @@ Install:
     - xdotool
     - git
     - vim
-    - zshw
+    - zsh
     - locate
     - autojump
     - gir1.2-gtksource-4                # nemo-preview dependency
