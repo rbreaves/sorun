@@ -16,6 +16,7 @@ Install:
     - chrome-gnome-shell
     - git
     - zsh
+    - screen
     - nemo
     - autojump
     - gir1.2-gtksource-4                # nemo-preview dependency
@@ -40,9 +41,9 @@ Install:
     - touchpad-gnome-reverse
     # - homebrew
     - autojump                  # Configures bash & zsh to source it
-    - git-config
     - homerc-files
     - terminal-zsh-defaults
+    - git-config
     # - libinput-gestures
     # - hidpi-laptop-budgie
   # Done: echo "Congrats";

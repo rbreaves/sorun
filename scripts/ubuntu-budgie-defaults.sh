@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# https://github.com/UbuntuBudgie/budgie-extras/blob/master/budgie-extras-daemon/src/layouts.vala
+
 main () {
 
 	mkdir -p "$HOME/budgie-schemas/"
@@ -14,6 +16,11 @@ main () {
 		gsettings set org.gnome.desktop.background picture-options "stretched"
 		gsettings set org.gnome.desktop.background picture-uri "file:////usr/share/backgrounds/budgie/sorunme-1920x1200.jpg"
 		gsettings set org.gnome.desktop.background primary-color "#008094"
+		gsettings set org.ubuntubudgie.plugins.budgie-appmenu enable-powerstrip true
+		gsettings set io.elementary.desktop.wingpanel.applications-menu use-category true
+		gsettings set org.nemo.window-state start-with-menu-bar true
+		gsettings set org.nemo.preferences show-hidden-files true
+		gsettings set org.nemo.preferences quick-renames-with-pause-in-between true
 
 		# gsettings set com.solus-project.budgie-panel.instance.appmenu.*.bold-application-name true
 		# gsettings set com.solus-project.budgie-panel.panel enable-shadow true

@@ -37,6 +37,9 @@ source ./functions/colors.sh
 
 main() {
 
+	T="$(date +%s)"
+
+	which snap >/dev/null 2>&1
 	echo "Apt parameters: $apt_quiet"
 	echo "Temporarily disabling IPv6 to avoid possible delays and hanging processes."
 	echo -e "sudo sysctl net.ipv6.conf.all.disable_ipv6=1\n"
@@ -216,6 +219,10 @@ main() {
 	else
 		echo -e "${ULINEYELLOW}Phase 3/3 Remove packages [ Skipping. Nothing configured. ]${NC}\n"
 	fi
+
+	echo ""
+	T="$(($(date +%s)-T))"
+	date -d@$T -u +%H:%M:%S
 
 	echo "Re-enabling IPv6.."
 	sudo sysctl net.ipv6.conf.all.disable_ipv6=0
