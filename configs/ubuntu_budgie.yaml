@@ -12,6 +12,7 @@ Install:
     - git
     - vim
     - zsh
+    - screen
     - locate
     - autojump
     - gir1.2-gtksource-4                # nemo-preview dependency
@@ -46,9 +47,9 @@ Install:
     - time-12hr-gnome
     # - homebrew
     - autojump                  # Configures bash & zsh to source it
-    - git-config
     - homerc-files
     - terminal-zsh-defaults
+    - git-config
     # - libinput-gestures
     # - hidpi-laptop-budgie
   # Done: echo "Congrats";
