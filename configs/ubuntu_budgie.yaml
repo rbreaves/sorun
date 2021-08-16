@@ -1,14 +1,18 @@
-Distro: Ubuntu
-DE: Budgie
+Distro: ubuntu
+DE: budgie
 # distro-version:
 # de-version:
 Install:
   Prescript:
-  # ncdu htop
+    # - openssh-config
   Packages:
     - xfce4-terminal
+    - gnome-tweaks
+    - xdotool
     - git
+    - vim
     - zsh
+    - locate
     - autojump
     - gir1.2-gtksource-4                # nemo-preview dependency
     - nemo-preview
@@ -18,6 +22,7 @@ Install:
     - htop
     - tmux
     - remmina
+    - freerdp2-x11
     - font-manager
     - budgie-hotcorners-applet
     - budgie-workspace-overview-applet
@@ -29,20 +34,21 @@ Install:
     # - virtualbox
     # - virtualbox-ext-pack
   Snaps:
+  Flatpacks:
   Postscript:
     - printer-fix
     - mojave
     - ubuntu-budgie-defaults
     - kinto
-    - homerc-files
     - git-projects
     - touchpad-gnome-reverse
     - battery-gnome-percentage
     - time-12hr-gnome
-    - terminal-zsh-defaults
     # - homebrew
     - autojump                  # Configures bash & zsh to source it
     - git-config
+    - homerc-files
+    - terminal-zsh-defaults
     # - libinput-gestures
     # - hidpi-laptop-budgie
   # Done: echo "Congrats";

@@ -77,7 +77,7 @@ event-sounds=false
 
 [org.gnome.desktop.background:Budgie]
 show-desktop-icons=true
-picture-uri='file:///usr/share/backgrounds/budgie/mountain-lake_by_william_beckwith.jpg'
+picture-uri='file:///usr/share/backgrounds/budgie/sorunme-1920x1200.jpg'
 
 [org.gnome.desktop.input-sources:Budgie]
 xkb-options=['terminate:ctrl_alt_bksp']
@@ -87,7 +87,7 @@ exec='tilix'
 exec-arg='-e'
 
 [org.gnome.desktop.screensaver:Budgie]
-picture-uri='file:///usr/share/backgrounds/budgie/mountain-lake_by_william_beckwith.jpg'
+picture-uri='file:///usr/share/backgrounds/budgie/sorunme-1920x1200.jpg'
 
 [org.gtk.Settings.FileChooser:Budgie]
 sort-directories-first=true

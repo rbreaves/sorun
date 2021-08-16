@@ -1,0 +1,38 @@
+xfconf-query -c xfce4-panel -p /panels/panel-2 -rR
+
+/panels/panel-2/autohide-behavior            1
+/panels/panel-2/plugin-ids                   <<UNSUPPORTED>>
+/panels/panel-2/position                     p=10;x=0;y=0
+/panels/panel-2/position-locked              true
+/panels/panel-2/size                         48
+
+xfconf-query -c xfce4-panel -p /panels/panel-1/plugins/plugin-1 -rR
+
+/plugins/plugin-1                            applicationsmenu
+/plugins/plugin-14                           actions
+/plugins/plugin-15                           showdesktop
+/plugins/plugin-16                           separator
+/plugins/plugin-17                           launcher
+/plugins/plugin-17/items                     <<UNSUPPORTED>>
+/plugins/plugin-18                           launcher
+/plugins/plugin-18/items                     <<UNSUPPORTED>>
+/plugins/plugin-19                           launcher
+/plugins/plugin-19/items                     <<UNSUPPORTED>>
+/plugins/plugin-2                            tasklist
+/plugins/plugin-20                           launcher
+/plugins/plugin-20/items                     <<UNSUPPORTED>>
+/plugins/plugin-21                           separator
+/plugins/plugin-22                           directorymenu
+/plugins/plugin-22/base-directory            /home/ryanr
+/plugins/plugin-2/grouping                   1
+/plugins/plugin-6                            systray
+/plugins/plugin-6/names-ordered              <<UNSUPPORTED>>
+/plugins/plugin-6/show-frame                 false
+/plugins/plugin-6/square-icons               true
+/plugins/plugin-7                            statusnotifier
+/plugins/plugin-7/square-icons               true
+/plugins/plugin-7/symbolic-icons             true
+/plugins/plugin-8                            pulseaudio
+/plugins/plugin-8/enable-keyboard-shortcuts  true
+/plugins/plugin-8/show-notifications         true
+/plugins/plugin-9                            power-manager-plugin

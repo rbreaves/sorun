@@ -1,0 +1,51 @@
+Distro: pop!_os
+DE: gnome
+# distro-version:
+# de-version:
+Install:
+  Prescript:
+    # - openssh-config
+  Packages:
+    - xfce4-terminal
+    - xfce4-panel
+    - xdotool
+    - vim
+    - locate
+    - gnome-tweaks
+    - gnome-shell-extensions
+    - chrome-gnome-shell
+    - git
+    - zsh
+    - nemo
+    - autojump
+    - gir1.2-gtksource-4                # nemo-preview dependency
+    - nemo-preview
+    - sublime-text
+    - code
+    - ncdu
+    - htop
+    - tmux
+    - remmina
+    - freerdp2-x11
+    - font-manager
+    - plank
+    # - virtualbox
+    # - virtualbox-ext-pack
+  Snaps:
+  Postscript:
+    - mojave
+    - pop_os-defaults
+    - kinto
+    - git-projects
+    - touchpad-gnome-reverse
+    # - homebrew
+    - autojump                  # Configures bash & zsh to source it
+    - git-config
+    - homerc-files
+    - terminal-zsh-defaults
+    # - libinput-gestures
+    # - hidpi-laptop-budgie
+  # Done: echo "Congrats";
+  #   echo "You are done!"
+Remove:
+  Packages:

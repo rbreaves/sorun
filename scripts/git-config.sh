@@ -10,7 +10,7 @@ main() {
 		response=$(prompt "$question" $choices)
 		
 		if [ "$response" == "y" ];then
-			read -rep "${BWHITE}First & Last Name: ${NC}" name
+			read -rep "${BWHITE}Full Name: ${NC}" name
 			read -rep "${BWHITE}Email: ${NC}" email
 		else
 			exit 0
@@ -20,8 +20,6 @@ main() {
 	fi
 }
 
-function prompt(){
-	source ./functions/prompt.sh
-}
+source ./functions/prompt.sh
 
 main "$@"; exit
