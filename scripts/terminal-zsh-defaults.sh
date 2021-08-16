@@ -27,6 +27,9 @@ main () {
 	echo "Copy and paste the following, depending on your shell."
 	echo "source ~/.zshrc"
 	echo "source ~/.bashrc"
+	echo ""
+	echo "You may be prompted for a password to set zsh as your default shell."
+	chsh -s /usr/bin/zsh
 
 	which gnome-terminal
 	if [ $? -eq 0 ]; then
