@@ -31,7 +31,10 @@ main () {
 
 	# Budgie/Gnome
 	if [ "$dename" == "budgie" ] || [ "$dename" == "gnome" ];then
-		gsettings set org.gnome.desktop.wm.preferences button-layout 'close,minimize,maximize:'
+		cp -a ./assets/plank/dock1 ~/.config/plank/
+		mkdir -p ~/.local/share/plank/themes/
+		cp -a ./assets/plank/themes ~/.local/share/plank/
+		gsettings set org.gnome.deskop.wm.preferences button-layout 'close,minimize,maximize:'
 		gsettings set org.gnome.desktop.wm.preferences theme "Mojave-dark"
 
 		gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
@@ -47,7 +50,7 @@ main () {
 
 		gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ icon-size "72"
 		gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ zoom-enabled "false"
-		gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ theme 'Transparent'
+		gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ theme 'bishopDarkTrim'
 		gsettings set io.elementary.desktop.wingpanel.applications-menu enable-powerstrip "true"
 	fi
 
