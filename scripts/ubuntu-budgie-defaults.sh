@@ -76,7 +76,7 @@ main () {
 		sudo cp ./assets/cupertino.layout /usr/share/budgie-desktop/layouts/cupertino.layout
 	fi
 	sudo glib-compile-schemas /usr/share/glib-2.0/schemas
-
+	gsettings set com.github.danielpinto8zz6.budgie-calendar-applet custom-format '%a %b %e %l:%M %p'
 	nohup budgie-panel --reset --replace &
 
 	}

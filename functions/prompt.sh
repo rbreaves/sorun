@@ -5,7 +5,7 @@ destring=$("./functions/dename.sh")
 IFS=', ' read -r -a dearray <<< "$destring"
 dename=$(echo ${dearray[0]} | awk '{print tolower($0)}')
 deversion=${dearray[1]}
-distroversion=""
+distroversion=$(lsb_release -sr)
 
 function service_exists() {
     local n=$1

@@ -3,3 +3,4 @@ gnome-shell-extension-installer/
 /backups/*
 !/backups/.placeholder
 nohup.out
+macOSMonterey.tar.gz

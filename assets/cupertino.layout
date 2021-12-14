@@ -2,7 +2,7 @@
 Panels=Top Panel
 
 [Top Panel]
-Children=AppMenu;Spacer 1;Global Menu;AppIndicator;DropBy;Network;Spacer 2;Status;Clock;Notifications;HotCorners;;Raven Trigger;Workspace Switcher;
+Children=AppMenu;Spacer 1;Global Menu;AppIndicator;DropBy;Network;Spacer 2;Status;Calendar;Notifications;HotCorners;;Raven Trigger;Workspace Switcher;
 Position=Top
 Size=39
 
@@ -15,8 +15,8 @@ ID=Spacer
 [Global Menu]
 ID=Global Menu
 
-[Clock]
-ID=Clock
+[Calendar]
+ID=Calendar
 Alignment=end
 
 [AppIndicator]
