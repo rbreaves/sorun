@@ -9,6 +9,7 @@ Install:
   Packages:
     - xfce4-terminal
     - gnome-tweaks
+    - guake
     - xdotool
     - git
     - vim
@@ -37,6 +38,8 @@ Install:
     - budgie-indicator-applet
     - budgie-dropby-applet
     - budgie-network-manager-applet
+    - budgie-takeabreak-applet
+    - budgie-performance-gauge-applet
     - xserver-xorg-input-synaptics
     # - virtualbox
     # - virtualbox-ext-pack

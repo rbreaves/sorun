@@ -8,8 +8,10 @@ main() {
     mkdir -p ~/.icons
     mv macOSMonterey ~/.icons/
 
-    # Set accessibility cursor size to medium (one size up)
-    # Reset mouse theme (tweaks) to macOSMonterey
+    # Sets cursor to 2nd smallest setting
+    gsettings set org.gnome.desktop.interface cursor-size 32
+    # Sets cursor as default
+    gsettings set org.gnome.desktop.interface cursor-theme 'macOSMonterey'
 
 }
 

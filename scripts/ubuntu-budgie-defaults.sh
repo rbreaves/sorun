@@ -77,6 +77,7 @@ main () {
 	fi
 	sudo glib-compile-schemas /usr/share/glib-2.0/schemas
 	gsettings set com.github.danielpinto8zz6.budgie-calendar-applet custom-format '%a %b %e %l:%M %p'
+	sudo sed -i 's/Icon=guake/Icon=org.xfce.terminal/' /usr/share/applications/guake.desktop
 	nohup budgie-panel --reset --replace &
 
 	}
