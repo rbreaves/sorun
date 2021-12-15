@@ -6,6 +6,7 @@ IFS=', ' read -r -a dearray <<< "$destring"
 dename=$(echo ${dearray[0]} | awk '{print tolower($0)}')
 deversion=${dearray[1]}
 distroversion=$(lsb_release -sr)
+productname=$(cat /sys/class/dmi/id/product_name)
 
 function service_exists() {
     local n=$1
