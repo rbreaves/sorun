@@ -78,6 +78,8 @@ main () {
 	sudo glib-compile-schemas /usr/share/glib-2.0/schemas
 	gsettings set com.github.danielpinto8zz6.budgie-calendar-applet custom-format '%a %b %e %l:%M %p'
 	sudo sed -i 's/Icon=guake/Icon=org.xfce.terminal/' /usr/share/applications/guake.desktop
+	sudo sed -i 's/enabled=1/enabled=0/' /etc/default/apport
+	sudo service apport start force_start=0
 	nohup budgie-panel --reset --replace &
 	pkill -9 plank
 	git clone --single-branch --branch binaries https://github.com/rbreaves/dock.git
