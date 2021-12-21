@@ -12,6 +12,7 @@ Install:
     - guake
     - gnome-system-monitor
     - xdotool
+    - touchegg
     - git
     - vim
     - zsh
@@ -42,13 +43,16 @@ Install:
     - budgie-takeabreak-applet
     - budgie-performance-gauge-applet
     - xserver-xorg-input-synaptics
+    - gnome-software-plugin-flatpak
     # - virtualbox
     # - virtualbox-ext-pack
   Snaps:
   Flatpacks:
   Postscript:
     - printer-fix
+    - cursor
     - mojave
+    - touche
     - ubuntu-budgie-defaults
     - kinto
     - git-projects

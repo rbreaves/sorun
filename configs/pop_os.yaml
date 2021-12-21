@@ -16,6 +16,7 @@ Install:
     - gnome-tweaks
     - gnome-shell-extensions
     - chrome-gnome-shell
+    - touchegg
     - git
     - zsh
     - screen
@@ -31,11 +32,14 @@ Install:
     - remmina
     - freerdp2-x11
     - font-manager
+    - xserver-xorg-input-synaptics
+    - gnome-software-plugin-flatpak
     # - virtualbox
     # - virtualbox-ext-pack
   Snaps:
   Postscript:
     - mojave
+    - touche
     - pop_os-defaults
     - kinto
     - git-projects
