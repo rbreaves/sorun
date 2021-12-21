@@ -10,6 +10,7 @@ Install:
     - xfce4-terminal
     - gnome-tweaks
     - guake
+    - gnome-system-monitor
     - xdotool
     - git
     - vim

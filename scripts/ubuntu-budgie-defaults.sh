@@ -79,6 +79,14 @@ main () {
 	gsettings set com.github.danielpinto8zz6.budgie-calendar-applet custom-format '%a %b %e %l:%M %p'
 	sudo sed -i 's/Icon=guake/Icon=org.xfce.terminal/' /usr/share/applications/guake.desktop
 	nohup budgie-panel --reset --replace &
+	pkill -9 plank
+	git clone --single-branch --branch binaries https://github.com/rbreaves/dock.git
+	if [ "$deversion" == "20.04" ];then
+		sudo dpkg -i ./dock/release/plank_0.11.89-1_amd64_20.04.deb
+	elif [ "$deversion" == "21.10" ];then
+		sudo dpkg -i ./dock/release/plank_0.11.89-3_amd64_21.10.deb
+	fi
+	nohup plank&
 
 	}
 

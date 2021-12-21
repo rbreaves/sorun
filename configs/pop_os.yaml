@@ -8,6 +8,8 @@ Install:
   Packages:
     - xfce4-terminal
     - xfce4-panel
+    - guake
+    - gnome-system-monitor
     - xdotool
     - vim
     - locate
@@ -29,7 +31,6 @@ Install:
     - remmina
     - freerdp2-x11
     - font-manager
-    - plank
     # - virtualbox
     # - virtualbox-ext-pack
   Snaps:
