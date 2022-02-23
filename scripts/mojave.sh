@@ -37,7 +37,7 @@ main () {
 		gsettings set org.gnome.deskop.wm.preferences button-layout 'close,minimize,maximize:'
 		gsettings set org.gnome.desktop.wm.preferences theme "Mojave-dark"
 
-		gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
+		gsettings set org.gnome.desktop.interface cursor-theme "macOSMonterey"
 		gsettings set org.gnome.desktop.interface gtk-theme "Mojave-dark"
 		gsettings set org.gnome.desktop.interface icon-theme "McMojave-circle-dark"
 		gsettings set org.gnome.desktop.interface monospace-font-name "Ubuntu Mono 13"

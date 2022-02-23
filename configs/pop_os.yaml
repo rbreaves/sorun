@@ -10,7 +10,19 @@ Install:
     - xfce4-panel
     - guake
     - gnome-system-monitor
+    - gnome-disk-utility
+    - gnome-calculator
+    - net-tools
+    - ifmetric
+    - nmap
+    - exfat-utils
+    - gparted
+    - nemo-share
+    - cifs-utils
+    - uget
+    - uget-integrator
     - xdotool
+    - intel-gpu-tools
     - vim
     - locate
     - gnome-tweaks
@@ -36,8 +48,10 @@ Install:
     - gnome-software-plugin-flatpak
     # - virtualbox
     # - virtualbox-ext-pack
+    # - anydesk
   Snaps:
   Postscript:
+    - cursor
     - mojave
     - touche
     - pop_os-defaults

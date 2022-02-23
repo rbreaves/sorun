@@ -31,10 +31,10 @@ main () {
 		cp ./assets/.vimrc ~/.vimrc
 	fi
 
-	file="$HOME/.profile"
+	file="$HOME/.Xresources"
 	# Check each sudo line and add if needed
-	if [ -f ~/.profile ];then
-		cat ./assets/.profile | while read line || [[ -n $line ]];
+	if [ -f ~/.Xresources ];then
+		cat ./assets/.Xresources | while read line || [[ -n $line ]];
 		do
 			grep -qF -- "$line" "$file" || echo "$line" >> "$file"
 		done

@@ -62,7 +62,7 @@ Postscript:
 ...
 ```
 
-If you want to add a post package install script then you can follow the template file or openss-config.sh as interactive examples.
+If you want to add a post package install script then you can follow the template file or openssh-config.sh as interactive examples.
 https://github.com/rbreaves/sorun/blob/main/scripts/template.sh
 ```
 #!/usr/bin/env bash

@@ -11,7 +11,19 @@ Install:
     - gnome-tweaks
     - guake
     - gnome-system-monitor
+    - gnome-disk-utility
+    - gnome-calculator
+    - net-tools
+    - ifmetric
+    - nmap
+    - exfat-utils
+    - gparted
+    - nemo-share
+    - cifs-utils
+    - uget
+    - uget-integrator
     - xdotool
+    - intel-gpu-tools
     - touchegg
     - git
     - vim
@@ -46,6 +58,7 @@ Install:
     - gnome-software-plugin-flatpak
     # - virtualbox
     # - virtualbox-ext-pack
+    # - anydesk
   Snaps:
   Flatpacks:
   Postscript:
