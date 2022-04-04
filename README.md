@@ -12,7 +12,7 @@ A consistent desktop experience for developers and creators, regardless of the d
 
 If you are only interested in the key remapper aspect of Sorun.me then please checkout my other project [kinto.sh](https://github.com/rbreaves/kinto). Sorun.me quickly brings onboard several applications geared towards developers and creators and largely based on my own preferences, but it can be expanded to support more applications, configurations and distros.
 
-## Pre-built distro (Ubuntu Budgie 21.10)
+## Pre-built distro w/ shortcut to initiate Sorun.me install (Ubuntu Budgie 21.10)
 
 https://sourceforge.net/projects/sorunme/files/
 
