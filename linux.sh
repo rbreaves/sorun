@@ -133,6 +133,7 @@ main() {
 	echo "${BWHITE}Desktop Environment:${NC} ${BGREEN}$dename${NC}"
 	echo "${BWHITE}DE Version:${NC} ${BGREEN}$deversion${NC}"
 	echo "${BWHITE}Distro Version:${NC} ${BGREEN}$distroversion${NC}"
+	echo "${BWHITE}Product Name:${NC} ${BGREEN}$productname${NC}"
 
 	if [ $no_match -eq 1 ]; then
 		echo "No config file for your OS was found."

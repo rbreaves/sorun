@@ -8,12 +8,27 @@ Install:
   Packages:
     - xfce4-terminal
     - xfce4-panel
+    - guake
+    - gnome-system-monitor
+    - gnome-disk-utility
+    - gnome-calculator
+    - net-tools
+    - ifmetric
+    - nmap
+    - exfat-utils
+    - gparted
+    - nemo-share
+    - cifs-utils
+    - uget
+    - uget-integrator
     - xdotool
+    - intel-gpu-tools
     - vim
     - locate
     - gnome-tweaks
     - gnome-shell-extensions
     - chrome-gnome-shell
+    - touchegg
     - git
     - zsh
     - screen
@@ -29,12 +44,16 @@ Install:
     - remmina
     - freerdp2-x11
     - font-manager
-    - plank
+    - xserver-xorg-input-synaptics
+    - gnome-software-plugin-flatpak
     # - virtualbox
     # - virtualbox-ext-pack
+    # - anydesk
   Snaps:
   Postscript:
+    - cursor
     - mojave
+    - touche
     - pop_os-defaults
     - kinto
     - git-projects

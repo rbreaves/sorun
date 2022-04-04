@@ -70,13 +70,25 @@ main () {
 	# if [ -d /tmp/sorun ] && [ -f /tmp/sorun/assets/25_budgie-desktop-environment.gschema.override ];then
 	# 	sudo cp /tmp/sorun/assets/25_budgie-desktop-environment.gschema.override /usr/share/glib-2.0/schemas/25_budgie-desktop-environment.gschema.override
 	if [ -d ./assets/ ];then
+		sudo cp ./assets/icons/scalable/sorunme-symbolic.svg /usr/share/icons/hicolor/scalable/apps/sorunme-symbolic.svg
 		sudo cp ./assets/25_budgie-desktop-environment.gschema.override /usr/share/glib-2.0/schemas/25_budgie-desktop-environment.gschema.override
 		sudo cp ./assets/org.valapanel.appmenu.gschema.xml /usr/share/glib-2.0/schemas/org.valapanel.appmenu.gschema.xml
 		sudo cp ./assets/cupertino.layout /usr/share/budgie-desktop/layouts/cupertino.layout
 	fi
 	sudo glib-compile-schemas /usr/share/glib-2.0/schemas
-
+	gsettings set com.github.danielpinto8zz6.budgie-calendar-applet custom-format '%a %b %e %l:%M %p'
+	sudo sed -i 's/Icon=guake/Icon=org.xfce.terminal/' /usr/share/applications/guake.desktop
+	sudo sed -i 's/enabled=1/enabled=0/' /etc/default/apport
+	sudo service apport start force_start=0
 	nohup budgie-panel --reset --replace &
+	pkill -9 plank
+	git clone --single-branch --branch binaries https://github.com/rbreaves/dock.git
+	if [ "$deversion" == "20.04" ];then
+		sudo dpkg -i ./dock/release/plank_0.11.89-1_amd64_20.04.deb
+	elif [ "$deversion" == "21.10" ];then
+		sudo dpkg -i ./dock/release/plank_0.11.89-3_amd64_21.10.deb
+	fi
+	nohup plank&
 
 	}
 

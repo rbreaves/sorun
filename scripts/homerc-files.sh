@@ -31,6 +31,15 @@ main () {
 		cp ./assets/.vimrc ~/.vimrc
 	fi
 
+	file="$HOME/.Xresources"
+	# Check each sudo line and add if needed
+	if [ -f ~/.Xresources ];then
+		cat ./assets/.Xresources | while read line || [[ -n $line ]];
+		do
+			grep -qF -- "$line" "$file" || echo "$line" >> "$file"
+		done
+	fi
+
 	question="Would you like to copy a basic .vimrc file from $HOME to /root/.vimrc to resolve arrow key & insert issues?"
 	choices=(*yes no)
 	response=$(prompt "$question" $choices)

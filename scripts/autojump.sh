@@ -20,10 +20,14 @@
 
 if [ -f /usr/share/autojump/autojump.sh ];then
 	if ! grep -q 'autojump.sh' ~/.bashrc;then
-		echo "[ -f /usr/share/autojump/autojump.sh ] && . /usr/share/autojump/autojump.sh"  >> ~/.bashrc
+		# echo "[ -f /usr/share/autojump/autojump.sh ] && . /usr/share/autojump/autojump.sh"  >> ~/.bashrc
+		awk 'NR==3{print "\n[ -f /usr/share/autojump/autojump.sh ] && . /usr/share/autojump/autojump.sh"}1' ~/.bashrc > /tmp/.bashrc
+		mv /tmp/.bashrc ~/.bashrc
 	fi
 
 	if ! grep -q 'autojump.sh' ~/.zshrc;then
-		echo "[ -f /usr/share/autojump/autojump.sh ] && . /usr/share/autojump/autojump.sh"  >> ~/.zshrc
+		# echo "[ -f /usr/share/autojump/autojump.sh ] && . /usr/share/autojump/autojump.sh"  >> ~/.zshrc
+		awk 'NR==3{print "\n[ -f /usr/share/autojump/autojump.sh ] && . /usr/share/autojump/autojump.sh"}1' ~/.zshrc > /tmp/.zshrc
+		mv /tmp/.zshrc ~/.zshrc
 	fi
 fi

@@ -4,14 +4,33 @@ DE: budgie
 # de-version:
 Install:
   Prescript:
+    # - hidpi-scale-fix.sh
     # - openssh-config
   Packages:
     - xfce4-terminal
     - gnome-tweaks
+    - guake
+    - gnome-system-monitor
+    - gnome-disk-utility
+    - gnome-calculator
+    - net-tools
+    - ifmetric
+    - nmap
+    - exfat-utils
+    - gparted
+    - nemo-share
+    - cifs-utils
+    - uget
+    - uget-integrator
     - xdotool
+    - intel-gpu-tools
+    - touchegg
     - git
     - vim
     - zsh
+    - dconf-editor
+    - neofetch
+    - hardinfo
     - screen
     - locate
     - autojump
@@ -25,6 +44,7 @@ Install:
     - remmina
     - freerdp2-x11
     - font-manager
+    - budgie-calendar-applet
     - budgie-hotcorners-applet
     - budgie-workspace-overview-applet
     - budgie-applications-menu-applet
@@ -32,13 +52,20 @@ Install:
     - budgie-indicator-applet
     - budgie-dropby-applet
     - budgie-network-manager-applet
+    - budgie-takeabreak-applet
+    - budgie-performance-gauge-applet
+    - xserver-xorg-input-synaptics
+    - gnome-software-plugin-flatpak
     # - virtualbox
     # - virtualbox-ext-pack
+    # - anydesk
   Snaps:
   Flatpacks:
   Postscript:
     - printer-fix
+    - cursor
     - mojave
+    - touche
     - ubuntu-budgie-defaults
     - kinto
     - git-projects
