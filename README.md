@@ -16,7 +16,7 @@ If you are only interested in the key remapper aspect of Sorun.me then please ch
 
 https://sourceforge.net/projects/sorunme/files/
 
-## Install (Ubuntu Budgie 20.04 & Pop\!_OS 20.04 Only)
+## Install (Ubuntu Budgie 20.xx/21.xx & Pop\!_OS 20.04 Only)
 
 Sorun.me v0.9
 
