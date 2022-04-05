@@ -134,6 +134,16 @@ main() {
 	echo "${BWHITE}DE Version:${NC} ${BGREEN}$deversion${NC}"
 	echo "${BWHITE}Distro Version:${NC} ${BGREEN}$distroversion${NC}"
 	echo "${BWHITE}Product Name:${NC} ${BGREEN}$productname${NC}"
+	echo ""
+	echo ""
+	question="Do you want to change your screens scaling? (may need to reboot & run this again)"
+	choices=(*no yes)
+	response=$(prompt "$question" $choices)
+	if [ "$response" == "y" ];then
+		echo "Installing & running betterScale..."
+		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/rbreaves/betterScale/master/install/linux.sh)"
+	fi
+	echo ""
 
 	if [ $no_match -eq 1 ]; then
 		echo "No config file for your OS was found."
