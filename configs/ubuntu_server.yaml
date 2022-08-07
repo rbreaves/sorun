@@ -1,0 +1,38 @@
+Distro: ubuntu
+DE: unknown
+# distro-version:
+# de-version:
+Install:
+  Prescript:
+    # - openssh-config
+  Packages:
+    - net-tools
+    - ifmetric
+    - nmap
+    - gparted
+    - cifs-utils
+    - git
+    - vim
+    - zsh
+    - neofetch
+    - screen
+    - locate
+    - autojump
+    - ncdu
+    - htop
+    - tmux
+    # - docker
+    # - azure cli
+    # - aws cli
+    # - gcp cli
+    # - 
+  Snaps:
+  Flatpacks:
+  Postscript:
+    - homebrew
+    - autojump                  # Configures bash & zsh to source it
+    - homerc-files
+    - terminal-zsh-defaults
+    - git-config
+Remove:
+  Packages:
